@@ -116,7 +116,7 @@
       position:relative;
       border-radius:18px; /* Borda mais arredondada */
       overflow:hidden;
-      height:320px; /* Altura maior */
+      /* Removido height:320px; para permitir que o contêiner do vídeo defina a altura */
       display:flex;
       align-items:center;
       justify-content:center;
@@ -124,23 +124,61 @@
       box-shadow: inset 0 -30px 80px rgba(0,0,0,0.08), 0 20px 50px rgba(0,0,0,0.1); /* Sombras mais intensas */
       transform:translateZ(0);
     }
-    /* Video Player Container - Simplificado para usar controles nativos */
+    .hero-media video{width:100%;height:100%;object-fit:cover;display:block}
+    /* Video Player Container for Mute/Play Overlay */
     .video-player-container {
       position: relative;
       width: 100%;
-      height: 100%;
+      /* Definindo uma altura padrão para os contêineres de vídeo */
+      height: 550px; /* Altura padrão para ambos os vídeos */
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 18px; /* Aplica a borda arredondada ao contêiner do vídeo */
       overflow: hidden; /* Garante que o conteúdo interno também seja arredondado */
     }
+    /* Estilo específico para o vídeo dentro do hero-media, se precisar de altura diferente */
+    .hero-media .video-player-container {
+        height: 320px; /* Mantém a altura original para o vídeo do hero, se desejado */
+    }
     .video-player-container video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      /* Removido todos os estilos de overlay e custom controls */
+    }
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .video-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .video-overlay .play-button {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+    .video-overlay .mute-icon {
+      font-size: 0.8em;
+      background: rgba(0,0,0,0.6);
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+    /* Custom Video Controls - REMOVIDOS para simular player do YouTube */
+    .custom-video-controls {
+      display: none !important; /* Esconde completamente os controles customizados */
     }
     .kicker{
       display:inline-block;padding:10px 18px;border-radius:999px;
@@ -390,8 +428,23 @@
       .gallery img{height:120px;}
       .instagram-followers h3 { font-size: 28px; }
       .instagram-followers p { font-size: 16px; }
-      .video-player-container { padding-bottom: 56.25%; /* 16:9 aspect ratio for mobile */ height: 0; } /* Adicionado para manter proporção */
-      .video-player-container video { position: absolute; top: 0; left: 0; } /* Posiciona o vídeo dentro do contêiner com proporção */
+      /* Ajuste para o contêiner de vídeo em telas menores */
+      .video-player-container {
+        height: auto; /* Remove altura fixa para responsividade */
+        padding-bottom: 56.25%; /* Proporção 16:9 (altura / largura * 100) */
+        position: relative;
+      }
+      .video-player-container video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      /* Mantém a altura original para o vídeo do hero, se desejado, mas com responsividade */
+      .hero-media .video-player-container {
+          padding-bottom: 75%; /* Proporção 4:3 para o vídeo do hero, se for o caso */
+      }
     }
     @media (max-width: 480px) {
       .hero-card{padding:20px}
@@ -449,9 +502,13 @@
           <h2>A folia que marcou uma geração está de volta!</h2>
           <p class="lead">Prepare-se para uma viagem no tempo! O Bloco Recordar Mosqueiro traz de volta a alegria e a energia contagiante dos antigos carnavais. Garanta seu abadá e faça parte dessa folia que promete ficar para a história!</p>
           <div class="hero-media" id="heroMedia">
-            <div class="video-player-container">
-              <!-- Removido o overlay e os custom-video-controls. Adicionado 'controls' para os controles nativos. -->
-              <video id="promoVideo2024" src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767019836/RECORDAR_MOSQUEIRO_menor_mmmmm_tupafy.mp4" loop playsinline preload="auto" controls></video>
+            <div class="video-player-container"> <!-- Removido o estilo inline height: 320px daqui -->
+              <video id="promoVideo2024" src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767019836/RECORDAR_MOSQUEIRO_menor_mmmmm_tupafy.mp4" loop playsinline preload="auto"></video>
+              <div class="video-overlay">
+                <span class="play-button">▶</span>
+                <span class="mute-icon">🔇 Mudo</span>
+              </div>
+              <!-- Controles customizados removidos conforme sua solicitação anterior -->
             </div>
           </div>
           <div class="info-block">
@@ -468,12 +525,11 @@
             <div class="info-item">
               <p class="small">Ingressos a partir de</p>
               <p class="price">R$ 50,00</p>
-              <p class="small-muted">Garanta já o seu abadá!</p>
             </div>
           </div>
-          <div style="margin-top:24px" class="cta-row">
-            <a class="btn btn-primary" id="buyNow" href="#checkout-section">
-              Comprar Abadás
+          <div class="cta-row" style="margin-top: 30px;">
+            <a id="buyNow" class="btn btn-primary" href="https://ticket.pedido.one/event/1slrdP/checkout" target="_blank" rel="noopener noreferrer">
+              Garanta seu Abadá
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
             </a>
             <a class="btn btn-ghost" href="https://www.instagram.com/recordarmosqueirooficial/" target="_blank" rel="noopener noreferrer">
@@ -514,8 +570,12 @@
         </div>
         <h2 class="text-center" style="margin-top: 40px;">Nosso 2025 Foi Assim:</h2>
         <div class="video-player-container" style="height: 550px;">
-          <!-- Removido o overlay e os custom-video-controls. Adicionado 'controls' para os controles nativos. -->
-          <video id="promoVideo2025" src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767028762/2_online-video-cutter.com_dyqd1m.mp4" loop playsinline preload="auto" controls></video>
+          <video id="promoVideo2025" src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767028762/2_online-video-cutter.com_dyqd1m.mp4" loop playsinline preload="auto"></video>
+          <div class="video-overlay">
+            <span class="play-button">▶</span>
+            <span class="mute-icon">🔇 Mudo</span>
+          </div>
+          <!-- Controles customizados removidos conforme sua solicitação anterior -->
         </div>
         <div class="instagram-followers">
           <h3>Mais de 10.000 Seguidores!</h3>
@@ -571,12 +631,12 @@
       canvas.height = window.innerHeight;
       return canvas.getContext('2d');
     }
-    // Format time for video controls (mantido caso precise em outro lugar, mas não mais para os players)
-    function formatTime(seconds) {
-      const minutes = Math.floor(seconds / 60);
-      const remainingSeconds = Math.floor(seconds % 60);
-      return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-    }
+    // Format time for video controls - REMOVIDO pois os controles foram removidos
+    // function formatTime(seconds) {
+    //   const minutes = Math.floor(seconds / 60);
+    //   const remainingSeconds = Math.floor(seconds % 60);
+    //   return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    // }
     // ========== CONFETTI ==========
     (function(){
       const canvas = document.getElementById('confettiCanvas');
@@ -779,35 +839,73 @@
         });
       }
     })();
-    // ========== Video Playback (Simplificado para usar controles nativos) ==========
+    // ========== Video Playback with Mute Control (Simplified for YouTube-like player) ==========
     (function(){
-      const videos = document.querySelectorAll('.video-player-container video');
+      const videoContainers = document.querySelectorAll('.video-player-container');
+      videoContainers.forEach(container => {
+        const video = container.querySelector('video');
+        const overlay = container.querySelector('.video-overlay');
+        const playButton = overlay.querySelector('.play-button');
+        const muteIconSpan = overlay.querySelector('.mute-icon');
 
-      videos.forEach(video => {
-        // Adiciona o atributo 'controls' para exibir os controles nativos do navegador
-        video.setAttribute('controls', '');
+        // Initial state: muted and playing automatically when visible
+        video.muted = true; // Start muted
+        video.volume = 0.5; // Default volume (if unmuted)
 
-        // Define o vídeo como mudo inicialmente para autoplay em alguns navegadores
-        video.muted = true;
+        // Function to update mute/unmute button icon and overlay text
+        function updateMuteIcon() {
+          if (muteIconSpan) {
+            muteIconSpan.innerHTML = video.muted ? '🔇 Mudo' : '🔊 Som';
+          }
+        }
 
-        // Tenta dar play automaticamente quando o vídeo está visível
+        // NOVIDADE: Adicionado evento de clique direto no vídeo para play/pause
+        video.addEventListener('click', () => {
+          if (video.paused) {
+            video.play();
+          } else {
+            video.pause();
+          }
+        });
+
+        video.addEventListener('play', () => {
+          overlay.classList.add('hidden');
+        });
+        video.addEventListener('pause', () => {
+          overlay.classList.remove('hidden');
+        });
+        video.addEventListener('volumechange', updateMuteIcon);
+
+        // Overlay click to play/unmute
+        overlay.addEventListener('click', () => {
+          if (video.paused) {
+            video.play();
+          }
+          video.muted = false; // Unmute on user interaction
+          overlay.classList.add('hidden');
+          updateMuteIcon();
+        });
+
+        // Intersection Observer to play/pause when visible/invisible
         const observer = new IntersectionObserver(entries => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              video.play().catch(e => console.log("Autoplay prevented:", e));
-              // Se o usuário interagir, pode desmutar
-              video.addEventListener('click', () => {
-                if (video.muted) {
-                  video.muted = false;
-                }
-              }, { once: true }); // Apenas uma vez para desmutar na primeira interação
+              // Play with sound when visible
+              video.muted = false; // Unmute when visible
+              video.play().catch(() => {});
+              overlay.classList.add('hidden');
             } else {
               video.pause();
-              video.currentTime = 0; // Reinicia o vídeo ao sair da tela
+              video.muted = true; // Mute when not visible
+              overlay.classList.remove('hidden');
             }
+            updateMuteIcon();
           });
-        }, { threshold: 0.5 }); // Aciona quando 50% do vídeo está visível
+        }, { threshold: 0.5 }); // Trigger when 50% of video is visible
         observer.observe(video);
+
+        // Initial updates
+        updateMuteIcon();
       });
     })();
     // ========== Gallery Lightbox/Carousel ==========
@@ -887,6 +985,7 @@
       window.addEventListener('resize', fitAll);
       fitAll();
     })();
+	<!-- v2 -->
   </script>
 </body>
 </html>
