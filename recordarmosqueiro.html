@@ -59,8 +59,6 @@
       box-shadow:0 15px 40px rgba(0,0,0,0.1); /* Sombra um pouco mais suave */
       border: 1px solid rgba(255,255,255,0.5); /* Borda sutil para o efeito */
     }
-
-
     .brand {
       display: flex;
       flex-direction: column;
@@ -126,8 +124,7 @@
       box-shadow: inset 0 -30px 80px rgba(0,0,0,0.08), 0 20px 50px rgba(0,0,0,0.1); /* Sombras mais intensas */
       transform:translateZ(0);
     }
-    .hero-media video{width:100%;height:100%;object-fit:cover;display:block}
-    /* Video Player Container for Mute/Play Overlay */
+    /* Video Player Container - Simplificado para usar controles nativos */
     .video-player-container {
       position: relative;
       width: 100%;
@@ -135,7 +132,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* Adicionado border-radius para o contêiner do vídeo */
       border-radius: 18px; /* Aplica a borda arredondada ao contêiner do vídeo */
       overflow: hidden; /* Garante que o conteúdo interno também seja arredondado */
     }
@@ -144,98 +140,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
-    }
-    .video-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.4);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 700;
-      font-size: 1.2em;
-      cursor: pointer;
-      transition: opacity 0.3s ease;
-      z-index: 1;
-    }
-    .video-overlay.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .video-overlay .play-button {
-      font-size: 3em;
-      margin-bottom: 10px;
-    }
-    .video-overlay .mute-icon {
-      font-size: 0.8em;
-      background: rgba(0,0,0,0.6);
-      padding: 5px 10px;
-      border-radius: 8px;
-    }
-    /* Custom Video Controls */
-    .custom-video-controls {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      color: white;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 2; /* Acima do overlay */
-    }
-    .video-player-container:hover .custom-video-controls {
-      opacity: 1;
-    }
-    .custom-video-controls button {
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-      font-size: 1.2em;
-      padding: 5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .custom-video-controls button:hover {
-      color: var(--carnaval-from);
-    }
-    .custom-video-controls input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      background: #555;
-      border-radius: 5px;
-      height: 8px;
-      cursor: pointer;
-      flex-grow: 1;
-    }
-    .custom-video-controls input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: var(--carnaval-from);
-      cursor: pointer;
-    }
-    .custom-video-controls input[type="range"]::-moz-range-thumb {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: var(--carnaval-from);
-      cursor: pointer;
-    }
-    .custom-video-controls .time-display {
-      font-size: 0.9em;
-      min-width: 70px;
-      text-align: center;
+      /* Removido todos os estilos de overlay e custom controls */
     }
     .kicker{
       display:inline-block;padding:10px 18px;border-radius:999px;
@@ -430,7 +335,6 @@
       pointer-events: none;
       z-index: 9999; /* Garante que fique na frente */
     }
-
     @keyframes fallAndSway {
       0% {
         transform: translateY(0) rotate(0deg);
@@ -451,7 +355,6 @@
         opacity: 0;
       }
     }
-
     /* Responsive adjustments */
     @media (max-width: 1024px) {
       .hero{grid-template-columns:1fr}
@@ -487,7 +390,8 @@
       .gallery img{height:120px;}
       .instagram-followers h3 { font-size: 28px; }
       .instagram-followers p { font-size: 16px; }
-      .video-player-container { padding-bottom: 75%; /* 4:3 aspect ratio for mobile if preferred */ }
+      .video-player-container { padding-bottom: 56.25%; /* 16:9 aspect ratio for mobile */ height: 0; } /* Adicionado para manter proporção */
+      .video-player-container video { position: absolute; top: 0; left: 0; } /* Posiciona o vídeo dentro do contêiner com proporção */
     }
     @media (max-width: 480px) {
       .hero-card{padding:20px}
@@ -546,18 +450,8 @@
           <p class="lead">Prepare-se para uma viagem no tempo! O Bloco Recordar Mosqueiro traz de volta a alegria e a energia contagiante dos antigos carnavais. Garanta seu abadá e faça parte dessa folia que promete ficar para a história!</p>
           <div class="hero-media" id="heroMedia">
             <div class="video-player-container">
-              <video id="promoVideo2024" src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767019836/RECORDAR_MOSQUEIRO_menor_mmmmm_tupafy.mp4" loop playsinline preload="auto"></video>
-              <div class="video-overlay">
-                <span class="play-button">▶</span>
-                <span class="mute-icon">🔇 Mudo</span>
-              </div>
-              <div class="custom-video-controls">
-                <button class="play-pause-btn" aria-label="Play/Pause">▶</button>
-                <input type="range" class="timeline" value="0" min="0" max="100">
-                <span class="time-display">00:00 / 00:00</span>
-                <button class="mute-unmute-btn" aria-label="Mute/Unmute">🔊</button>
-                <input type="range" class="volume-slider" value="100" min="0" max="100">
-              </div>
+              <!-- Removido o overlay e os custom-video-controls. Adicionado 'controls' para os controles nativos. -->
+              <video id="promoVideo2024" src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767019836/RECORDAR_MOSQUEIRO_menor_mmmmm_tupafy.mp4" loop playsinline preload="auto" controls></video>
             </div>
           </div>
           <div class="info-block">
@@ -620,18 +514,8 @@
         </div>
         <h2 class="text-center" style="margin-top: 40px;">Nosso 2025 Foi Assim:</h2>
         <div class="video-player-container" style="height: 550px;">
-          <video id="promoVideo2025" src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767028762/2_online-video-cutter.com_dyqd1m.mp4" loop playsinline preload="auto"></video>
-          <div class="video-overlay">
-            <span class="play-button">▶</span>
-            <span class="mute-icon">🔇 Mudo</span>
-          </div>
-          <div class="custom-video-controls">
-            <button class="play-pause-btn" aria-label="Play/Pause">▶</button>
-            <input type="range" class="timeline" value="0" min="0" max="100">
-            <span class="time-display">00:00 / 00:00</span>
-            <button class="mute-unmute-btn" aria-label="Mute/Unmute">🔊</button>
-            <input type="range" class="volume-slider" value="100" min="0" max="100">
-          </div>
+          <!-- Removido o overlay e os custom-video-controls. Adicionado 'controls' para os controles nativos. -->
+          <video id="promoVideo2025" src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767028762/2_online-video-cutter.com_dyqd1m.mp4" loop playsinline preload="auto" controls></video>
         </div>
         <div class="instagram-followers">
           <h3>Mais de 10.000 Seguidores!</h3>
@@ -687,7 +571,7 @@
       canvas.height = window.innerHeight;
       return canvas.getContext('2d');
     }
-    // Format time for video controls
+    // Format time for video controls (mantido caso precise em outro lugar, mas não mais para os players)
     function formatTime(seconds) {
       const minutes = Math.floor(seconds / 60);
       const remainingSeconds = Math.floor(seconds % 60);
@@ -895,113 +779,35 @@
         });
       }
     })();
-    // ========== Video Playback with Mute Control and Custom Controls ==========
+    // ========== Video Playback (Simplificado para usar controles nativos) ==========
     (function(){
-      const videoContainers = document.querySelectorAll('.video-player-container');
-      videoContainers.forEach(container => {
-        const video = container.querySelector('video');
-        const overlay = container.querySelector('.video-overlay');
-        const playButton = overlay.querySelector('.play-button');
-        const muteIconSpan = overlay.querySelector('.mute-icon');
-        const customControls = container.querySelector('.custom-video-controls');
-        const playPauseBtn = customControls.querySelector('.play-pause-btn');
-        const timeline = customControls.querySelector('.timeline');
-        const timeDisplay = customControls.querySelector('.time-display');
-        const muteUnmuteBtn = customControls.querySelector('.mute-unmute-btn');
-        const volumeSlider = customControls.querySelector('.volume-slider');
-        // Initial state: muted and playing automatically when visible
-        video.muted = true; // Start muted
-        video.volume = 0.5; // Default volume
-        volumeSlider.value = 50;
-        // Function to update play/pause button icon
-        function updatePlayPauseIcon() {
-          playPauseBtn.innerHTML = video.paused ? '▶' : '⏸';
-        }
-        // Function to update mute/unmute button icon and overlay text
-        function updateMuteIcon() {
-          muteUnmuteBtn.innerHTML = video.muted ? '🔇' : '🔊';
-          if (muteIconSpan) {
-            muteIconSpan.innerHTML = video.muted ? '🔇 Mudo' : '🔊 Som';
-          }
-        }
-        // Function to update time display
-        function updateTimeDisplay() {
-          timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
-          timeline.value = (video.currentTime / video.duration) * 100 || 0;
-        }
-        // NOVIDADE: Adicionado evento de clique direto no vídeo para play/pause
-        video.addEventListener('click', () => {
-          if (video.paused) {
-            video.play();
-          } else {
-            video.pause();
-          }
-        });
-        // Play/Pause logic (mantido para o botão dos controles)
-        playPauseBtn.addEventListener('click', () => {
-          if (video.paused) {
-            video.play();
-          } else {
-            video.pause();
-          }
-        });
-        // Mute/Unmute logic
-        muteUnmuteBtn.addEventListener('click', () => {
-          video.muted = !video.muted;
-          updateMuteIcon();
-        });
-        // Volume control
-        volumeSlider.addEventListener('input', () => {
-          video.volume = volumeSlider.value / 100;
-          video.muted = video.volume === 0; // Mute if volume is 0
-          updateMuteIcon();
-        });
-        // Timeline control
-        timeline.addEventListener('input', () => {
-          const seekTime = (timeline.value / 100) * video.duration;
-          video.currentTime = seekTime;
-        });
-        // Video events
-        video.addEventListener('play', () => {
-          updatePlayPauseIcon();
-          overlay.classList.add('hidden');
-        });
-        video.addEventListener('pause', () => {
-          updatePlayPauseIcon();
-          overlay.classList.remove('hidden');
-        });
-        video.addEventListener('volumechange', updateMuteIcon);
-        video.addEventListener('timeupdate', updateTimeDisplay);
-        video.addEventListener('loadedmetadata', updateTimeDisplay); // Initial time display
-        // Overlay click to play/unmute
-        overlay.addEventListener('click', () => {
-          if (video.paused) {
-            video.play();
-          }
-          video.muted = false; // Unmute on user interaction
-          overlay.classList.add('hidden');
-          updateMuteIcon();
-        });
-        // Intersection Observer to play/pause when visible/invisible
+      const videos = document.querySelectorAll('.video-player-container video');
+
+      videos.forEach(video => {
+        // Adiciona o atributo 'controls' para exibir os controles nativos do navegador
+        video.setAttribute('controls', '');
+
+        // Define o vídeo como mudo inicialmente para autoplay em alguns navegadores
+        video.muted = true;
+
+        // Tenta dar play automaticamente quando o vídeo está visível
         const observer = new IntersectionObserver(entries => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              // Play with sound when visible
-              video.muted = false; // Unmute when visible
-              video.play().catch(() => {});
-              overlay.classList.add('hidden');
+              video.play().catch(e => console.log("Autoplay prevented:", e));
+              // Se o usuário interagir, pode desmutar
+              video.addEventListener('click', () => {
+                if (video.muted) {
+                  video.muted = false;
+                }
+              }, { once: true }); // Apenas uma vez para desmutar na primeira interação
             } else {
               video.pause();
-              video.muted = true; // Mute when not visible
-              overlay.classList.remove('hidden');
+              video.currentTime = 0; // Reinicia o vídeo ao sair da tela
             }
-            updateMuteIcon();
           });
-        }, { threshold: 0.5 }); // Trigger when 50% of video is visible
+        }, { threshold: 0.5 }); // Aciona quando 50% do vídeo está visível
         observer.observe(video);
-        // Initial updates
-        updatePlayPauseIcon();
-        updateMuteIcon();
       });
     })();
     // ========== Gallery Lightbox/Carousel ==========
