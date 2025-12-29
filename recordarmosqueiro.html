@@ -1,0 +1,1086 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Recordar Mosqueiro — Viva o Carnaval 90's</title>
+  <meta name="description" content="Reviva os carnavais inesquecíveis de Mosqueiro com o bloco Recordar Mosqueiro — abadás a partir de R$ 50. Compra segura via PedidoOne." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" />
+  <style>
+    :root{
+      /* Cores de Carnaval Vibrantes */
+      --carnaval-from: #FF416C; /* Rosa vibrante */
+      --carnaval-to: #FF4B2B;   /* Laranja vibrante */
+      --accent-yellow: #FFD700; /* Amarelo ouro para destaque */
+      --accent-blue: #00BFFF;   /* Azul céu para contraste */
+      --text: #2c3e50;          /* Texto escuro para legibilidade */
+      --muted: #7f8c8d;         /* Texto secundário */
+      --card-bg: rgba(255,255,255,0.95); /* Fundo de card mais opaco */
+      --max-width: 1200px;
+      --confetti-count: 60; /* ajuste global */
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%; margin:0; padding:0;} /* Removido padding e margem padrão */
+    body{
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color:var(--text);
+      background: linear-gradient(180deg, #FFF8F0 0%, #FFFFFF 100%); /* Fundo mais claro e alegre */
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      overflow-x:hidden;
+    }
+    .container{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 28px; /* Ajustado padding horizontal */
+      position:relative;
+      z-index:2;
+    }
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px; /* Aumentado o gap para melhor espaçamento */
+      padding:16px 0; /* Aumentado o padding */
+      position:relative;
+    }
+    .logo{display:flex;gap:16px;align-items:center} /* Aumentado o gap */
+    .logo img{
+      width:280px; /* Ajustado para um tamanho menor */
+      height:180px; /* Ajustado para um tamanho menor */
+      object-fit:contain;
+      border-radius:16px; /* Mantido arredondado */
+      background:rgba(255,255,255,0.7); /* Fundo branco com transparência */
+      backdrop-filter: blur(8px); /* Efeito de vidro fosco/água */
+      padding:12px; /* Padding para a imagem dentro do fundo */
+      box-shadow:0 15px 40px rgba(0,0,0,0.1); /* Sombra um pouco mais suave */
+      border: 1px solid rgba(255,255,255,0.5); /* Borda sutil para o efeito */
+    }
+
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Alinha o texto verticalmente com a logo */
+    }
+    .brand h1{margin:0;font-size:28px;font-weight:900;color:var(--text)} /* Fonte maior e mais bold */
+    .brand p{margin:0;font-size:18px;color:var(--muted)} /* Fonte maior */
+    nav a{ text-decoration:none;margin-left:24px;color:var(--text);font-weight:700;transition:color .2s ease }
+    nav a:hover{color:var(--carnaval-from)}
+    /* Animated background shapes */
+    .bg-visual {
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      overflow:hidden;
+    }
+    .blob{
+      position:absolute;
+      filter:blur(60px) saturate(180%); /* Blur e saturação maiores */
+      opacity:0.4; /* Mais visível */
+      transform:translate3d(0,0,0);
+      will-change:transform;
+      mix-blend-mode:screen;
+      animation:float 18s ease-in-out infinite; /* Animação mais longa */
+    }
+    .blob.a{width:700px;height:700px;border-radius:50%;background:linear-gradient(135deg,var(--carnaval-from),var(--accent-yellow));top:-200px;left:-150px;animation-duration:22s}
+    .blob.b{width:600px;height:600px;border-radius:50%;background:linear-gradient(135deg,var(--accent-blue),var(--carnaval-to));bottom:-220px;right:-120px;animation-duration:28s;opacity:0.3}
+    @keyframes float{
+      0%{transform:translateY(0) translateX(0)}
+      50%{transform:translateY(30px) translateX(15px)}
+      100%{transform:translateY(0) translateX(0)}
+    }
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr 480px; /* Ajustado para melhor alinhamento */
+      gap:40px;
+      align-items:flex-start; /* Alinha o topo dos cards */
+      margin-top:36px; /* Margem superior para o hero */
+      margin-bottom:60px; /* Margem inferior para o hero */
+      position:relative;
+    }
+    .hero-card{
+      padding:36px; /* Padding maior */
+      border-radius:24px; /* Borda mais arredondada */
+      background: var(--card-bg);
+      backdrop-filter: blur(10px); /* Blur maior */
+      box-shadow: 0 30px 80px rgba(0,0,0,0.1); /* Sombra mais pronunciada */
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.8); /* Borda mais visível */
+    }
+    .hero-media{
+      position:relative;
+      border-radius:18px; /* Borda mais arredondada */
+      overflow:hidden;
+      height:320px; /* Altura maior */
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(180deg, rgba(255,65,108,0.1), rgba(255,75,43,0.05)); /* Gradiente mais festivo */
+      box-shadow: inset 0 -30px 80px rgba(0,0,0,0.08), 0 20px 50px rgba(0,0,0,0.1); /* Sombras mais intensas */
+      transform:translateZ(0);
+    }
+    .hero-media video{width:100%;height:100%;object-fit:cover;display:block}
+    /* Video Player Container for Mute/Play Overlay */
+    .video-player-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* Adicionado border-radius para o contêiner do vídeo */
+      border-radius: 18px; /* Aplica a borda arredondada ao contêiner do vídeo */
+      overflow: hidden; /* Garante que o conteúdo interno também seja arredondado */
+    }
+    .video-player-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    .video-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .video-overlay .play-button {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+    .video-overlay .mute-icon {
+      font-size: 0.8em;
+      background: rgba(0,0,0,0.6);
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+    /* Custom Video Controls */
+    .custom-video-controls {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 2; /* Acima do overlay */
+    }
+    .video-player-container:hover .custom-video-controls {
+      opacity: 1;
+    }
+    .custom-video-controls button {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 1.2em;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .custom-video-controls button:hover {
+      color: var(--carnaval-from);
+    }
+    .custom-video-controls input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: #555;
+      border-radius: 5px;
+      height: 8px;
+      cursor: pointer;
+      flex-grow: 1;
+    }
+    .custom-video-controls input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--carnaval-from);
+      cursor: pointer;
+    }
+    .custom-video-controls input[type="range"]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--carnaval-from);
+      cursor: pointer;
+    }
+    .custom-video-controls .time-display {
+      font-size: 0.9em;
+      min-width: 70px;
+      text-align: center;
+    }
+    .kicker{
+      display:inline-block;padding:10px 18px;border-radius:999px;
+      background: linear-gradient(90deg,var(--carnaval-from),var(--carnaval-to));
+      color:white;font-weight:900;font-size:15px; /* Fonte maior e mais bold */
+      box-shadow:0 12px 36px rgba(255,65,108,0.25); /* Sombra mais vibrante */
+    }
+    h2{font-size:36px;font-weight:900;margin-bottom:16px;color:var(--text)}
+    .hero h2{margin:20px 0 16px;font-size:48px;line-height:1.1;font-weight:900;color:var(--text)} /* Fonte maior e mais bold */
+    .lead{margin:0 0 28px;color:var(--muted);font-size:18px;line-height:1.6} /* Fonte maior */
+    .cta-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap} /* Gap maior */
+    .btn{display:inline-flex;align-items:center;gap:12px;padding:16px 28px;border-radius:16px;font-weight:800;border:none;cursor:pointer;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+    .btn-primary{background: linear-gradient(90deg,var(--carnaval-from),var(--carnaval-to));color:white;box-shadow:0 18px 50px rgba(255,65,108,0.35)}
+    .btn-primary:hover{transform:translateY(-6px);box-shadow:0 28px 70px rgba(255,65,108,0.45)}
+    .btn-ghost{background:transparent;border:2px solid rgba(0,0,0,0.1);color:var(--text)} /* Borda mais grossa */
+    .btn-ghost:hover{background:rgba(0,0,0,0.05);transform:translateY(-3px);box-shadow:0 10px 25px rgba(0,0,0,0.08)}
+    /* Iframe container for checkout */
+    .checkout-embed-container {
+      padding: 15px; /* Padding maior */
+      border-radius: 18px; /* Borda mais arredondada */
+      background: linear-gradient(180deg,var(--card-bg),rgba(255,255,255,0.9));
+      box-shadow: 0 18px 50px rgba(0,0,0,0.1);
+      text-align: center;
+      position: relative;
+      height: 600px; /* Altura inicial maior */
+      overflow: hidden;
+      border:1px solid rgba(255,255,255,0.8);
+    }
+    .checkout-embed-container iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      overflow: hidden;
+    }
+    /* Ajustes para a seção de data/ingressos */
+    .info-block{
+      margin-top:24px;
+      display:flex;
+      gap:16px; /* Ajustei o gap */
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content: space-around; /* Distribui os itens */
+      text-align: center; /* Centraliza o texto dentro dos itens */
+    }
+    .info-item{
+      flex:1;
+      min-width: 150px; /* Largura mínima para evitar quebras */
+      padding: 5px 0; /* Pequeno padding para respiro */
+    }
+    .info-item .small{font-size:14px;color:var(--muted); white-space: nowrap;} /* Evita quebra de linha */
+    .info-item .value{font-weight:800;font-size:17px;line-height:1.3;color:var(--text); white-space: nowrap;} /* Fonte maior e mais bold, evita quebra */
+    .info-divider{width:1px;background:rgba(0,0,0,0.1);height:60px} /* Divisor mais visível */
+    .info-item .price{font-size:32px;margin:6px 0 10px;font-weight:900;color:var(--carnaval-from); white-space: nowrap;} /* Preço maior e mais bold, evita quebra */
+    .info-item .small-muted{font-size:14px;color:var(--muted); white-space: nowrap;}
+    .text-center{text-align:center}
+    /* Gallery */
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Colunas responsivas */
+      gap:16px; /* Gap maior */
+      margin-top:30px;
+    }
+    .gallery a{
+      display:block;
+      border-radius:12px; /* Borda mais arredondada */
+      overflow:hidden;
+      box-shadow:0 8px 20px rgba(0,0,0,0.1); /* Sombra mais suave */
+      transition:transform .2s ease,box-shadow .2s ease;
+      cursor:pointer;
+    }
+    .gallery a:hover{transform:translateY(-5px);box-shadow:0 15px 30px rgba(0,0,0,0.15)}
+    .gallery img{width:100%;height:150px;object-fit:cover;display:block} /* Altura fixa para imagens */
+    /* Instagram Followers Section */
+    .instagram-followers {
+      background: linear-gradient(90deg, var(--accent-blue), #8A2BE2); /* Gradiente azul/roxo */
+      color: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      margin-top: 60px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+    .instagram-followers h3 {
+      font-size: 32px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    .instagram-followers p {
+      font-size: 18px;
+      margin-bottom: 0;
+    }
+    /* FAQ */
+    .faq-item{
+      background:var(--card-bg);
+      border-radius:16px;
+      padding:24px;
+      margin-bottom:16px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.05);
+      border:1px solid rgba(255,255,255,0.8);
+    }
+    .faq-item h3{font-size:20px;margin-top:0;margin-bottom:10px;color:var(--text)}
+    .faq-item p{font-size:16px;color:var(--muted);margin-bottom:0}
+    /* Footer */
+    footer{
+      text-align:center;
+      padding:40px 0;
+      font-size:14px;
+      color:var(--muted);
+      margin-top:60px;
+      border-top:1px solid rgba(0,0,0,0.05);
+    }
+    footer a{color:var(--carnaval-from);text-decoration:none;font-weight:600}
+    footer a:hover{text-decoration:underline}
+    /* Lightbox (Carousel) Styles */
+    .lightbox {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1000; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+    .lightbox-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+    .lightbox-close, .lightbox-prev, .lightbox-next {
+      cursor: pointer;
+      position: absolute;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      user-select: none;
+      padding: 16px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 50%;
+      line-height: 1;
+      height: 60px;
+      width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-close {
+      top: 20px;
+      right: 30px;
+      font-size: 30px;
+    }
+    .lightbox-prev {
+      left: 20px;
+    }
+    .lightbox-next {
+      right: 20px;
+    }
+    .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
+      color: #bbb;
+      background: rgba(0,0,0,0.7);
+    }
+    /* Estilos para as serpentinas */
+    .ribbon {
+      position: absolute;
+      top: -100px; /* Começa acima da tela */
+      background: #FFD700; /* Cor padrão, será sobrescrita */
+      width: 10px;
+      height: 200px;
+      opacity: 0.8;
+      transform-origin: top center;
+      animation: fallAndSway linear infinite;
+      pointer-events: none;
+      z-index: 9999; /* Garante que fique na frente */
+    }
+
+    @keyframes fallAndSway {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+      }
+      25% {
+        transform: translateY(25vh) rotate(10deg);
+      }
+      50% {
+        transform: translateY(50vh) rotate(-10deg);
+        opacity: 0.9;
+      }
+      75% {
+        transform: translateY(75vh) rotate(5deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      .hero{grid-template-columns:1fr}
+      .hero-card{padding:28px}
+      .checkout-embed-container{height:500px}
+      .info-block{flex-direction:column;align-items:flex-start;gap:10px}
+      .info-item{min-width:unset;width:100%;text-align:center}
+      .info-item:last-child{min-width:unset;width:100%;text-align:center}
+      .info-divider{display:none}
+      .hero h2{font-size:40px}
+      .lead{font-size:17px}
+      .cta-row{justify-content:center}
+      header{flex-direction:column;gap:10px}
+      nav{margin-top:10px}
+      .logo{justify-content:center}
+      .brand h1{font-size:24px} /* Ajustado para telas menores */
+      .brand p{font-size:16px} /* Ajustado para telas menores */
+      .lightbox-close, .lightbox-prev, .lightbox-next {
+        font-size: 30px;
+        height: 50px;
+        width: 50px;
+        padding: 10px;
+      }
+      .lightbox-close { top: 10px; right: 10px; }
+      .lightbox-prev { left: 10px; }
+      .lightbox-next { right: 10px; }
+    }
+    @media (max-width: 768px) {
+      .container{padding:16px}
+      .hero h2{font-size:36px}
+      .lead{font-size:16px}
+      .gallery{grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));}
+      .gallery img{height:120px;}
+      .instagram-followers h3 { font-size: 28px; }
+      .instagram-followers p { font-size: 16px; }
+      .video-player-container { padding-bottom: 75%; /* 4:3 aspect ratio for mobile if preferred */ }
+    }
+    @media (max-width: 480px) {
+      .hero-card{padding:20px}
+      .hero h2{font-size:32px}
+      .lead{font-size:15px}
+      .btn{padding:14px 24px;font-size:15px}
+      .kicker{font-size:14px;padding:8px 15px}
+      .info-item .price{font-size:28px}
+      .info-item .value{font-size:16px}
+      .info-item .small{font-size:13px}
+      .gallery{grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));}
+      .gallery img{height:100px;}
+      .logo img{width:100px;height:100px;padding:10px} /* Ajustado para telas muito pequenas */
+      .brand h1{font-size:20px}
+      .brand p{font-size:14px}
+      nav{display:none} /* Esconde a navegação em telas muito pequenas */
+      .lightbox-close, .lightbox-prev, .lightbox-next {
+        font-size: 24px;
+        height: 40px;
+        width: 40px;
+        padding: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-visual">
+    <div class="blob a"></div>
+    <div class="blob b"></div>
+  </div>
+  <!-- Canvas elements are now positioned absolutely and won't affect layout flow -->
+  <canvas id="confettiCanvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;"></canvas>
+  <canvas id="fireworksCanvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;"></canvas>
+  <div id="ribbonsContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:9999;"></div>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767019330/Recordar%20Mosqueiro/image-removebg-preview_ze8y8s.png" alt="Logo Recordar Mosqueiro">
+        <div class="brand">
+          <h1>Recordar Mosqueiro</h1>
+          <p>@recordarmosqueirooficial</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#sobre">Sobre</a>
+        <a href="#galeria">Galeria</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://www.instagram.com/recordarmosqueirooficial/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-card">
+          <span class="kicker">🌟 Viva o Carnaval • Abadás Limitados</span>
+          <h2>A folia que marcou uma geração está de volta!</h2>
+          <p class="lead">Prepare-se para uma viagem no tempo! O Bloco Recordar Mosqueiro traz de volta a alegria e a energia contagiante dos antigos carnavais. Garanta seu abadá e faça parte dessa folia que promete ficar para a história!</p>
+          <div class="hero-media" id="heroMedia">
+            <div class="video-player-container">
+              <video id="promoVideo2024" src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767019836/RECORDAR_MOSQUEIRO_menor_mmmmm_tupafy.mp4" loop playsinline preload="auto"></video>
+              <div class="video-overlay">
+                <span class="play-button">▶</span>
+                <span class="mute-icon">🔇 Mudo</span>
+              </div>
+              <div class="custom-video-controls">
+                <button class="play-pause-btn" aria-label="Play/Pause">▶</button>
+                <input type="range" class="timeline" value="0" min="0" max="100">
+                <span class="time-display">00:00 / 00:00</span>
+                <button class="mute-unmute-btn" aria-label="Mute/Unmute">🔊</button>
+                <input type="range" class="volume-slider" value="100" min="0" max="100">
+              </div>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="info-item">
+              <p class="small">Data do Evento</p>
+              <p class="value">16 de Fevereiro</p>
+            </div>
+            <div class="info-divider"></div>
+            <div class="info-item">
+              <p class="small">Local</p>
+              <p class="value">Mosqueiro</p>
+            </div>
+            <div class="info-divider"></div>
+            <div class="info-item">
+              <p class="small">Ingressos a partir de</p>
+              <p class="price">R$ 50,00</p>
+              <p class="small-muted">Garanta já o seu abadá!</p>
+            </div>
+          </div>
+          <div style="margin-top:24px" class="cta-row">
+            <a class="btn btn-primary" id="buyNow" href="#checkout-section">
+              Comprar Abadás
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            </a>
+            <a class="btn btn-ghost" href="https://www.instagram.com/recordarmosqueirooficial/" target="_blank" rel="noopener noreferrer">
+              Ver no Instagram
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+          </div>
+        </div>
+        <div class="checkout-embed-container" id="checkout-section">
+          <iframe id="pedido_one_iframe" src="https://ticket.pedido.one/event/1slrdP/checkout?embed=1" width="100%" height="100%" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation"></iframe>
+        </div>
+      </section>
+      <section id="galeria" class="container">
+        <h2 class="text-center">Momentos Inesquecíveis do Nosso Carnaval!</h2>
+        <p class="lead text-center">Confira fotos e vídeos que capturam a essência da nossa folia. Siga-nos no Instagram para mais!</p>
+        <div class="gallery">
+          <a href="#" data-img="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017895/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110821_pvj1ey.png" alt="Carnaval Recordar Mosqueiro 1">
+            <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017895/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110821_pvj1ey.png" alt="Carnaval Recordar Mosqueiro 1">
+          </a>
+          <a href="#" data-img="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017893/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110808_fehzwu.png" alt="Carnaval Recordar Mosqueiro 2">
+            <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017893/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110808_fehzwu.png" alt="Carnaval Recordar Mosqueiro 2">
+          </a>
+          <a href="#" data-img="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017889/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110709_u1urcj.png" alt="Carnaval Recordar Mosqueiro 3">
+            <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017889/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110709_u1urcj.png" alt="Carnaval Recordar Mosqueiro 3">
+          </a>
+          <a href="#" data-img="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017890/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110757_eqmz7d.png" alt="Carnaval Recordar Mosqueiro 4">
+            <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017890/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110757_eqmz7d.png" alt="Carnaval Recordar Mosqueiro 4">
+          </a>
+          <a href="#" data-img="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017887/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110639_mx9a7g.png" alt="Carnaval Recordar Mosqueiro 5">
+            <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017887/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110639_mx9a7g.png" alt="Carnaval Recordar Mosqueiro 5">
+          </a>
+          <a href="#" data-img="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017885/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110613_igijb6.png" alt="Carnaval Recordar Mosqueiro 6">
+            <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017885/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110613_igijb6.png" alt="Carnaval Recordar Mosqueiro 6">
+          </a>
+          <a href="#" data-img="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017884/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110516_a3glic.png" alt="Carnaval Recordar Mosqueiro 7">
+            <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017884/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110516_a3glic.png" alt="Carnaval Recordar Mosqueiro 7">
+          </a>
+        </div>
+        <h2 class="text-center" style="margin-top: 40px;">Nosso 2025 Foi Assim:</h2>
+        <div class="video-player-container" style="height: 550px;">
+          <video id="promoVideo2025" src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767028762/2_online-video-cutter.com_dyqd1m.mp4" loop playsinline preload="auto"></video>
+          <div class="video-overlay">
+            <span class="play-button">▶</span>
+            <span class="mute-icon">🔇 Mudo</span>
+          </div>
+          <div class="custom-video-controls">
+            <button class="play-pause-btn" aria-label="Play/Pause">▶</button>
+            <input type="range" class="timeline" value="0" min="0" max="100">
+            <span class="time-display">00:00 / 00:00</span>
+            <button class="mute-unmute-btn" aria-label="Mute/Unmute">🔊</button>
+            <input type="range" class="volume-slider" value="100" min="0" max="100">
+          </div>
+        </div>
+        <div class="instagram-followers">
+          <h3>Mais de 10.000 Seguidores!</h3>
+          <p>Junte-se à nossa comunidade no Instagram e não perca nada da folia!</p>
+          <a href="https://www.instagram.com/recordarmosqueirooficial/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top: 20px;">
+            Seguir no Instagram
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+        </div>
+      </section>
+      <section id="faq" class="container">
+        <h2 class="text-center">Perguntas Frequentes</h2>
+        <div class="faq-item">
+          <h3>O que é o Bloco Recordar Mosqueiro?</h3>
+          <p>Somos um bloco de carnaval que busca reviver a magia e a nostalgia dos carnavais da década de 90 em Mosqueiro, com muita alegria, música e tradição.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Como faço para comprar meu abadá?</h3>
+          <p>Você pode garantir seu abadá diretamente nesta página, através do nosso sistema de vendas seguro integrado com o PedidoOne. Basta clicar em "Garanta seu Abadá" e seguir os passos.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Onde posso ver mais fotos e vídeos do bloco?</h3>
+          <p>Temos uma galeria nesta página com alguns de nossos melhores momentos! Para ver ainda mais, siga nosso perfil oficial no Instagram: <a href="https://www.instagram.com/recordarmosqueirooficial/" target="_blank" rel="noopener noreferrer">@recordarmosqueirooficial</a>.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Qual a data e local do evento?</h3>
+          <p>O evento acontecerá no dia 16 de Fevereiro de 2025, em Mosqueiro, Belém - PA. Fique atento às nossas redes sociais para mais detalhes sobre o percurso e horários!</p>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2025 Recordar Mosqueiro. Todos os direitos reservados.</p>
+      <p>Desenvolvido com paixão pelo carnaval.</p>
+    </footer>
+  </div>
+  <!-- Lightbox HTML -->
+  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="lightbox-content">
+      <span class="lightbox-close">&times;</span>
+      <img id="lightbox-img" src="" alt="Imagem da Galeria">
+      <a class="lightbox-prev">&#10094;</a>
+      <a class="lightbox-next">&#10095;</a>
+    </div>
+  </div>
+  <script>
+    // Helper function to check if screen is small
+    function isSmallScreen() {
+      return window.innerWidth < 768;
+    }
+    // Utility to fit canvas to parent
+    function fitCanvas(canvas) {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      return canvas.getContext('2d');
+    }
+    // Format time for video controls
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = Math.floor(seconds % 60);
+      return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+    // ========== CONFETTI ==========
+    (function(){
+      const canvas = document.getElementById('confettiCanvas');
+      const ctx = fitCanvas(canvas);
+      let particles = [];
+      let raf;
+      const maxParticles = 150;
+      const colors = ['#FF416C','#FF4B2B','#FFD700','#00BFFF','#8A2BE2','#FF69B4','#ADFF2F'];
+      function resize() { fitCanvas(canvas); }
+      window.addEventListener('resize', resize);
+      function spawnConfetti(x, y, count = 30){
+        if(isSmallScreen()) return;
+        for(let i=0;i<count;i++){
+          if(particles.length > maxParticles) break;
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 2 + Math.random()*5;
+          particles.push({
+            x: x + (Math.random()*20 - 10),
+            y: y + (Math.random()*20 - 10),
+            vx: Math.cos(angle)*speed,
+            vy: Math.sin(angle)*speed,
+            life: 60 + Math.random()*60,
+            age: 0,
+            size: 4 + Math.random()*6,
+            color: colors[Math.floor(Math.random()*colors.length)],
+            shape: Math.random() > 0.5 ? 'square' : 'circle'
+          });
+        }
+        if(!raf) loop();
+      }
+      function loop(ts){
+        raf = requestAnimationFrame(loop);
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        for(let i=particles.length-1;i>=0;i--){
+          const p = particles[i];
+          p.age++;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.1; // Gravity
+          p.vx *= 0.98; // Air resistance
+          p.vy *= 0.98;
+          const alpha = Math.max(0, 1 - p.age / p.life);
+          ctx.beginPath();
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = alpha;
+          if(p.shape === 'circle'){
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+            ctx.fill();
+          } else {
+            ctx.fillRect(p.x - p.size/2, p.y - p.size/2, p.size, p.size);
+          }
+          if(p.age >= p.life) particles.splice(i,1);
+        }
+        ctx.globalAlpha = 1;
+        if(particles.length===0){ cancelAnimationFrame(raf); raf = null; }
+      }
+      window.triggerConfetti = function(options = {}){
+        const x = options.x || window.innerWidth / 2;
+        const y = options.y || window.innerHeight / 2;
+        spawnConfetti(x, y, options.count || undefined);
+      };
+      window.addEventListener('load', () => { setTimeout(()=>{ window.triggerRibbons && window.triggerRibbons(); window.triggerConfetti && window.triggerConfetti({count:40, x: window.innerWidth/2, y: 0}); }, 900); });
+    })();
+    // ========== RIBBONS / SERPENTINAS ==========
+    (function(){
+      const container = document.getElementById('ribbonsContainer');
+      if(isSmallScreen()) { container.style.display = 'none'; return; }
+      const colors = ['#FF416C','#FF4B2B','#FFD700','#00BFFF','#8A2BE2','#FF69B4','#ADFF2F']; // Cores de carnaval
+      const count = 8;
+      for(let i=0;i<count;i++){
+        const r = document.createElement('div');
+        r.className = 'ribbon';
+        r.style.left = `${Math.random()*100}%`;
+        r.style.background = colors[i % colors.length];
+        r.style.animationDuration = `${5 + Math.random()*4}s`;
+        r.style.animationDelay = `${Math.random()*1.2}s`;
+        r.style.width = `${8 + Math.random()*18}px`;
+        r.style.height = `${160 + Math.random()*160}px`;
+        container.appendChild(r);
+      }
+      setTimeout(()=>{ container.innerHTML = ''; }, 7000);
+      window.triggerRibbons = function(){
+        if(isSmallScreen()) return;
+        container.innerHTML = '';
+        for(let i=0;i<count;i++){
+          const r = document.createElement('div');
+          r.className = 'ribbon';
+          r.style.left = `${Math.random()*100}%`;
+          r.style.background = colors[i % colors.length];
+          r.style.animationDuration = `${4 + Math.random()*3}s`;
+          r.style.animationDelay = `${Math.random()*0.2}s`;
+          r.style.width = `${8 + Math.random()*18}px`;
+          r.style.height = `${120 + Math.random()*200}px`;
+          container.appendChild(r);
+        }
+        setTimeout(()=>{ container.innerHTML = ''; }, 5000);
+      };
+    })();
+    // ========== FIREWORKS ==========
+    (function(){
+      const canvas = document.getElementById('fireworksCanvas');
+      const ctx = fitCanvas(canvas);
+      let particles = [];
+      let raf;
+      const maxParticles = 240;
+      function resize() { fitCanvas(canvas); }
+      window.addEventListener('resize', resize);
+      function spawnFirework(x, y){
+        if(isSmallScreen()) return;
+        const hue = Math.random() * 360;
+        const count = 22 + Math.floor(Math.random()*36);
+        for(let i=0;i<count;i++){
+          if(particles.length > maxParticles) break;
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 1.6 + Math.random()*4.6;
+          particles.push({
+            x, y,
+            vx: Math.cos(angle)*speed,
+            vy: Math.sin(angle)*speed,
+            life: 60 + Math.random()*70,
+            age: 0,
+            size: 1 + Math.random()*3,
+            hue: hue + (Math.random()*40 - 20)
+          });
+        }
+        if(!raf) loop();
+      }
+      function loop(ts){
+        raf = requestAnimationFrame(loop);
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        for(let i=particles.length-1;i>=0;i--){
+          const p = particles[i];
+          p.age++;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.03;
+          p.vx *= 0.995;
+          p.vy *= 0.995;
+          const alpha = Math.max(0, 1 - p.age / p.life);
+          ctx.beginPath();
+          ctx.fillStyle = `hsla(${p.hue}, 100%, 55%, ${alpha})`;
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+          ctx.fill();
+          if(p.age >= p.life) particles.splice(i,1);
+        }
+        if(particles.length===0){ cancelAnimationFrame(raf); raf = null; }
+      }
+      let lastFirework = 0;
+      window.triggerFireworks = function(){
+        const now = Date.now();
+        if(now - lastFirework < 700) return;
+        lastFirework = now;
+        const w = window.innerWidth, h = window.innerHeight;
+        for(let i=0;i<3;i++){
+          const x = 80 + Math.random()*(w-160);
+          const y = 120 + Math.random()*200;
+          spawnFirework(x, y);
+        }
+      };
+    })();
+    // ========== UI interactions tying effects ==========
+    (function(){
+      const buyButtons = document.querySelectorAll('#buyNow, #buyNow3');
+      buyButtons.forEach(btn=>{
+        btn.addEventListener('click', (e)=>{
+          window.triggerConfetti && window.triggerConfetti({count:80});
+          window.triggerRibbons && window.triggerRibbons();
+          window.triggerFireworks && window.triggerFireworks();
+          console.log('Clique em link oficial PedidoOne');
+        });
+      });
+      // micro parallax on hero media
+      const heroMedia = document.getElementById('heroMedia');
+      heroMedia.addEventListener('mousemove', function(e){
+        const rect = heroMedia.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        heroMedia.style.transform = `translate3d(${x*6}px, ${y*6}px, 0) scale(1.01)`;
+      });
+      heroMedia.addEventListener('mouseleave', ()=> heroMedia.style.transform = '');
+      // small animation on load: more ribbons/confetti once
+      window.addEventListener('load', ()=>{
+        if(!isSmallScreen()){
+          setTimeout(()=>{ window.triggerRibbons && window.triggerRibbons(); window.triggerConfetti && window.triggerConfetti({count:40, x: window.innerWidth/2, y: 0}); }, 900);
+        }
+      });
+    })();
+    // ========== Pedido.one Iframe Height Adjustment ==========
+    (function(){
+      const iframe = document.getElementById('pedido_one_iframe');
+      if (iframe) {
+        window.addEventListener('message', function (e) {
+          if (e.data && e.data.iframeHeight) {
+            iframe.style.height = e.data.iframeHeight + 'px';
+            const parentContainer = iframe.closest('.checkout-embed-container');
+            if (parentContainer) {
+              parentContainer.style.height = 'auto';
+            }
+          }
+        });
+      }
+    })();
+    // ========== Video Playback with Mute Control and Custom Controls ==========
+    (function(){
+      const videoContainers = document.querySelectorAll('.video-player-container');
+      videoContainers.forEach(container => {
+        const video = container.querySelector('video');
+        const overlay = container.querySelector('.video-overlay');
+        const playButton = overlay.querySelector('.play-button');
+        const muteIconSpan = overlay.querySelector('.mute-icon');
+        const customControls = container.querySelector('.custom-video-controls');
+        const playPauseBtn = customControls.querySelector('.play-pause-btn');
+        const timeline = customControls.querySelector('.timeline');
+        const timeDisplay = customControls.querySelector('.time-display');
+        const muteUnmuteBtn = customControls.querySelector('.mute-unmute-btn');
+        const volumeSlider = customControls.querySelector('.volume-slider');
+        // Initial state: muted and playing automatically when visible
+        video.muted = true; // Start muted
+        video.volume = 0.5; // Default volume
+        volumeSlider.value = 50;
+        // Function to update play/pause button icon
+        function updatePlayPauseIcon() {
+          playPauseBtn.innerHTML = video.paused ? '▶' : '⏸';
+        }
+        // Function to update mute/unmute button icon and overlay text
+        function updateMuteIcon() {
+          muteUnmuteBtn.innerHTML = video.muted ? '🔇' : '🔊';
+          if (muteIconSpan) {
+            muteIconSpan.innerHTML = video.muted ? '🔇 Mudo' : '🔊 Som';
+          }
+        }
+        // Function to update time display
+        function updateTimeDisplay() {
+          timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+          timeline.value = (video.currentTime / video.duration) * 100 || 0;
+        }
+        // NOVIDADE: Adicionado evento de clique direto no vídeo para play/pause
+        video.addEventListener('click', () => {
+          if (video.paused) {
+            video.play();
+          } else {
+            video.pause();
+          }
+        });
+        // Play/Pause logic (mantido para o botão dos controles)
+        playPauseBtn.addEventListener('click', () => {
+          if (video.paused) {
+            video.play();
+          } else {
+            video.pause();
+          }
+        });
+        // Mute/Unmute logic
+        muteUnmuteBtn.addEventListener('click', () => {
+          video.muted = !video.muted;
+          updateMuteIcon();
+        });
+        // Volume control
+        volumeSlider.addEventListener('input', () => {
+          video.volume = volumeSlider.value / 100;
+          video.muted = video.volume === 0; // Mute if volume is 0
+          updateMuteIcon();
+        });
+        // Timeline control
+        timeline.addEventListener('input', () => {
+          const seekTime = (timeline.value / 100) * video.duration;
+          video.currentTime = seekTime;
+        });
+        // Video events
+        video.addEventListener('play', () => {
+          updatePlayPauseIcon();
+          overlay.classList.add('hidden');
+        });
+        video.addEventListener('pause', () => {
+          updatePlayPauseIcon();
+          overlay.classList.remove('hidden');
+        });
+        video.addEventListener('volumechange', updateMuteIcon);
+        video.addEventListener('timeupdate', updateTimeDisplay);
+        video.addEventListener('loadedmetadata', updateTimeDisplay); // Initial time display
+        // Overlay click to play/unmute
+        overlay.addEventListener('click', () => {
+          if (video.paused) {
+            video.play();
+          }
+          video.muted = false; // Unmute on user interaction
+          overlay.classList.add('hidden');
+          updateMuteIcon();
+        });
+        // Intersection Observer to play/pause when visible/invisible
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // Play with sound when visible
+              video.muted = false; // Unmute when visible
+              video.play().catch(() => {});
+              overlay.classList.add('hidden');
+            } else {
+              video.pause();
+              video.muted = true; // Mute when not visible
+              overlay.classList.remove('hidden');
+            }
+            updateMuteIcon();
+          });
+        }, { threshold: 0.5 }); // Trigger when 50% of video is visible
+        observer.observe(video);
+        // Initial updates
+        updatePlayPauseIcon();
+        updateMuteIcon();
+      });
+    })();
+    // ========== Gallery Lightbox/Carousel ==========
+    (function(){
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const closeBtn = document.querySelector('.lightbox-close');
+      const prevBtn = document.querySelector('.lightbox-prev');
+      const nextBtn = document.querySelector('.lightbox-next');
+      const galleryLinks = document.querySelectorAll('.gallery a');
+      let currentImageIndex = 0;
+      let images = [];
+      // Populate images array
+      galleryLinks.forEach(link => {
+        images.push(link.getAttribute('data-img'));
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          currentImageIndex = images.indexOf(this.getAttribute('data-img'));
+          openLightbox(currentImageIndex);
+        });
+      });
+      function openLightbox(index) {
+        lightbox.classList.add('active');
+        lightbox.setAttribute('aria-hidden', 'false');
+        showImage(index);
+      }
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        lightbox.setAttribute('aria-hidden', 'true');
+      }
+      function showImage(index) {
+        if (index < 0) {
+          currentImageIndex = images.length - 1;
+        } else if (index >= images.length) {
+          currentImageIndex = 0;
+        } else {
+          currentImageIndex = index;
+        }
+        lightboxImg.src = images[currentImageIndex];
+      }
+      closeBtn.addEventListener('click', closeLightbox);
+      prevBtn.addEventListener('click', () => showImage(currentImageIndex - 1));
+      nextBtn.addEventListener('click', () => showImage(currentImageIndex + 1));
+      // Close with ESC key
+      window.addEventListener('keydown', function(e) {
+        if (lightbox.classList.contains('active')) {
+          if (e.key === 'Escape') {
+            closeLightbox();
+          } else if (e.key === 'ArrowLeft') {
+            showImage(currentImageIndex - 1);
+          } else if (e.key === 'ArrowRight') {
+            showImage(currentImageIndex + 1);
+          }
+        }
+      });
+      // Close when clicking outside the image
+      lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+    })();
+    // ========== Misc: Smooth scroll for nav links ==========
+    document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        const id = this.getAttribute('href');
+        document.querySelector(id).scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+    // Ensure canvases cover the full viewport visually after layout
+    (function initCanvasSizes(){
+      const cvs = [document.getElementById('confettiCanvas'), document.getElementById('fireworksCanvas')];
+      function fitAll(){
+        cvs.forEach(c => { c.style.width = '100%'; c.style.height = '100%'; fitCanvas(c); });
+      }
+      window.addEventListener('resize', fitAll);
+      fitAll();
+    })();
+  </script>
+</body>
+</html>
