@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recordar Mosqueiro - Carnaval 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <!-- Font Awesome para ícones sociais no footer, se necessário -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+        /* Confetes, Serpentinas e Elementos de Carnaval */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+        .confetti {
+            position: absolute;
+            animation: fall 3s linear forwards, fadeOut 1s ease-out 2s forwards;
+        }
+        .confetti.square {
+            width: 10px;
+            height: 10px;
+        }
+        .confetti.serpentine {
+            width: 8px;
+            height: 40px;
+            border-radius: 4px;
+        }
+        .confetti.mask {
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+        }
+        .confetti.note {
+            width: 15px;
+            height: 15px;
+            font-size: 15px;
+        }
+        .confetti.star {
+            width: 15px;
+            height: 15px;
+            font-size: 15px;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            66.67% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(150vh) rotate(720deg);
+            }
+        }
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+            }
+        }
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .logo {
+            height: 80px;
+            background: white;
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .brand {
+            display: flex;
+            flex-direction: column;
+        }
+        .brand h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+        .brand .instagram {
+            color: #E1306C;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #667eea;
+        }
+        /* Botão Flutuante de Compra */
+        .floating-buy-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            animation: pulse 2s infinite;
+        }
+        .floating-buy-button a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .floating-buy-button a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(255, 107, 107, 0.6);
+        }
+        .floating-buy-button .icon {
+            font-size: 1.5rem;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        /* Hero Section - SUPER ESTILIZADO */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Efeito de brilho de fundo */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg at 50% 50%, #ffeb3b, #ff9800, #ff5722, #e91e63, #9c27b0, #673ab7, #3f51b5, #2196f3, #03a9f4, #00bcd4, #009688, #4caf50, #8bc34a, #cddc39, #ffeb3b);
+            animation: rotateBackground 20s linear infinite;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        @keyframes rotateBackground {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .hero .badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700); /* Dourado vibrante */
+            color: #8B4513; /* Marrom para contraste */
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+            animation: bounce 2s infinite, glow 1.5s infinite alternate;
+            transform-origin: center bottom;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero .badge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            animation: rotateLight 3s linear infinite;
+            opacity: 0.5;
+        }
+        @keyframes rotateLight {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
+        }
+        @keyframes glow {
+            0% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.7); }
+            100% { box-shadow: 0 0 25px rgba(255, 215, 0, 1), 0 0 35px rgba(255, 165, 0, 0.8); }
+        }
+        .hero h2 {
+            font-family: 'Permanent Marker', cursive; /* Aplicado aqui */
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.4);
+            line-height: 1.2;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .hero-buttons .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hero-buttons .btn-primary {
+            background: linear-gradient(45deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+        }
+        .hero-buttons .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255, 107, 107, 0.6);
+        }
+        .hero-buttons .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .hero-buttons .btn-secondary:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        /* Seções Gerais */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .section:last-of-type {
+            margin-bottom: 0;
+        }
+        .section h2 {
+            font-family: 'Permanent Marker', cursive; /* Aplicado aqui para todos os h2 de seção */
+            font-size: 2.8rem;
+            color: #667eea;
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        .section h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #ff8e53);
+            border-radius: 2px;
+        }
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+        /* Video Player */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: black; /* Fundo preto para o vídeo */
+        }
+        .video-wrapper video {
+            width: 100%;
+            display: block;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4rem;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            z-index: 2;
+        }
+        .video-wrapper.playing .video-overlay {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 3;
+        }
+        .video-wrapper:hover .video-controls,
+        .video-wrapper.playing .video-controls {
+            opacity: 1;
+        }
+        .video-controls button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.2rem;
+            transition: color 0.2s;
+        }
+        .video-controls button:hover {
+            color: #667eea;
+        }
+        .progress-bar {
+            flex-grow: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff6b6b, #ff8e53);
+            border-radius: 4px;
+            transition: width 0.1s linear;
+        }
+        .time-display {
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        .volume-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .volume-slider {
+            width: 80px;
+            height: 4px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .volume-slider::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        /* Carousel Modal */
+        .carousel-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+        .carousel-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .carousel-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .carousel-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+        .carousel-close, .carousel-nav {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 10001;
+        }
+        .carousel-close:hover, .carousel-nav:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        .carousel-close {
+            top: 20px;
+            right: 20px;
+        }
+        .carousel-nav.prev {
+            left: -60px;
+        }
+        .carousel-nav.next {
+            right: -60px;
+        }
+        @media (max-width: 768px) {
+            .carousel-nav.prev { left: 10px; }
+            .carousel-nav.next { right: 10px; }
+            .carousel-close { top: 10px; right: 10px; font-size: 1.2rem; padding: 8px 12px; }
+        }
+        /* FAQ */
+        .faq-container {
+            margin-top: 2rem;
+            text-align: left;
+        }
+        .faq-item {
+            background: #f9f9f9;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .faq-question {
+            padding: 1.2rem 1.5rem;
+            background: #eee;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+        }
+        .faq-question:hover {
+            background: #e0e0e0;
+        }
+        .faq-question.active {
+            background: #d0d0d0;
+        }
+        .faq-question .icon {
+            transition: transform 0.3s;
+        }
+        .faq-question.active .icon {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            padding: 1.2rem 1.5rem;
+            background: #fff;
+            color: #555;
+            display: none;
+            font-size: 1rem;
+            line-height: 1.6;
+            border-top: 1px solid #eee;
+        }
+        /* PedidoOne Iframe */
+        .pedidoone-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: 600px; /* Altura mínima para o iframe */
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: #fff;
+        }
+        .pedidoone-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+        footer .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 0.8rem;
+            transition: color 0.3s;
+        }
+        footer .social-links a:hover {
+            color: #667eea;
+        }
+        footer p {
+            margin-top: 1rem;
+        }
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+            .logo-container {
+                justify-content: center;
+                width: 100%;
+            }
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+            }
+            .hero-buttons .btn {
+                width: 80%;
+            }
+            .section {
+                padding: 3rem 1rem;
+            }
+            .section h2 {
+                font-size: 2rem;
+            }
+            .video-controls {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .volume-controls {
+                width: 100%;
+                justify-content: center;
+            }
+            .volume-slider {
+                width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="confetti-container"></div>
+
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767019330/Recordar%20Mosqueiro/image-removebg-preview_ze8y8s.png" alt="Logo Recordar Mosqueiro" class="logo">
+                <div class="brand">
+                    <h1>Recordar Mosqueiro</h1>
+                    <a href="https://www.instagram.com/recordarmosqueiro/" target="_blank" class="instagram">@recordarmosqueiro</a>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#hero">Início</a></li>
+                <!--<li><a href="#video-section-1">Vídeo 1</a></li>-->
+                <li><a href="#gallery">Fotos</a></li>
+                <!--<li><a href="#video-section-2">Vídeo 2</a></li>-->
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#pedidoone">Compra</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="hero">
+            <div class="hero-content">
+                <span class="badge">🌟 Viva o Carnaval • Abadás Limitados</span>
+                <h2>A folia que marcou uma geração está de volta!</h2>
+                <p>Prepare-se para uma viagem no tempo! O **Bloco Recordar Mosqueiro** traz de volta a alegria e a energia contagiante dos antigos carnavais. Garanta seu abadá e faça parte dessa folia que promete ficar para a história!</p>
+                <div class="hero-buttons">
+                    <a href="#pedidoone" class="btn btn-primary"><i class="fas fa-ticket-alt"></i> Comprar Abadá Agora!</a>
+                    <a href="#gallery" class="btn btn-secondary"><i class="fas fa-images"></i> Ver Fotos e Vídeos</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="video-section-1" class="section">
+            <h2 style="font-family: 'Permanent Marker', cursive;">Nosso Carnaval Começa Aqui!</h2>
+            <div class="video-wrapper" id="videoWrapper1">
+                <video id="video1" preload="metadata" poster="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767019836/RECORDAR_MOSQUEIRO_menor_mmmmm_tupafy.jpg">
+                    <source src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767019836/RECORDAR_MOSQUEIRO_menor_mmmmm_tupafy.mp4" type="video/mp4">
+                    Seu navegador não suporta o elemento de vídeo.
+                </video>
+                <div class="video-overlay" id="firstPlayPauseOverlay">▶</div>
+                <div class="video-controls">
+                    <button id="firstPlayBtn">▶</button>
+                    <button id="firstMuteBtn">🔊</button>
+                    <input type="range" id="firstVolumeSlider" min="0" max="1" step="0.01" value="0.5" class="volume-slider">
+                    <div class="progress-bar" id="firstProgressBar">
+                        <div class="progress-bar-fill" id="firstProgressBarFill"></div>
+                    </div>
+                    <span class="time-display"><span id="firstCurrentTimeSpan">0:00</span> / <span id="firstDurationSpan">0:00</span></span>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="section">
+            <h2 style="font-family: 'Permanent Marker', cursive;">Nosso 2025 Foi Assim!</h2>
+            <p>Confira fotos e vídeos que capturam a essência da nossa folia. Siga-nos no Instagram para mais!</p>
+            <div class="gallery-grid">
+                <!-- Imagens da galeria serão populadas via JS -->
+            </div>
+        </section>
+
+        <section id="video-section-2" class="section">
+            <h2 style="font-family: 'Permanent Marker', cursive;">Mais da Nossa Folia!</h2>
+            <div class="video-wrapper" id="videoWrapper2">
+                <video id="video2" preload="metadata" poster="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767019836/RECORDAR_MOSQUEIRO_menor_mmmmm_tupafy.jpg">
+                    <source src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767019836/RECORDAR_MOSQUEIRO_menor_mmmmm_tupafy.mp4" type="video/mp4">
+                    Seu navegador não suporta o elemento de vídeo.
+                </video>
+                <div class="video-overlay" id="secondPlayPauseOverlay">▶</div>
+                <div class="video-controls">
+                    <button id="secondPlayBtn">▶</button>
+                    <button id="secondMuteBtn">🔊</button>
+                    <input type="range" id="secondVolumeSlider" min="0" max="1" step="0.01" value="0.5" class="volume-slider">
+                    <div class="progress-bar" id="secondProgressBar">
+                        <div class="progress-bar-fill" id="secondProgressBarFill"></div>
+                    </div>
+                    <span class="time-display"><span id="secondCurrentTimeSpan">0:00</span> / <span id="secondDurationSpan">0:00</span></span>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="section">
+            <h2>Perguntas Frequentes</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Quando e onde será o evento?
+                        <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        O Bloco Recordar Mosqueiro acontecerá no dia 22 de fevereiro de 2026, a partir das 16h, na Praia do Farol, em Mosqueiro.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Como faço para comprar meu abadá?
+                        <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        Você pode garantir seu abadá clicando no botão "Comprar Abadá Agora!" nesta página ou visitando a seção de compra no final da página. As vendas são feitas através da plataforma PedidoOne.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Quais são as atrações confirmadas?
+                        <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        Teremos diversas atrações que remetem aos antigos carnavais, com bandas e DJs que tocarão os maiores sucessos da época. Fique ligado em nossas redes sociais para anúncios detalhados!
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Haverá segurança no local?
+                        <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        Sim, a segurança do evento é nossa prioridade. Contaremos com uma equipe de segurança privada e apoio da polícia local para garantir a tranquilidade de todos os foliões.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Crianças podem participar?
+                        <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        O evento é livre para todas as idades, mas recomendamos que menores de 16 anos estejam acompanhados por um responsável legal.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pedidoone" class="section">
+            <h2>Garanta seu Abadá!</h2>
+            <p>Não perca tempo! Compre seu abadá agora e venha reviver a magia do Carnaval de Mosqueiro com o Bloco Recordar Mosqueiro.</p>
+            <div class="pedidoone-container">
+                <!-- URL do PedidoOne verificada e corrigida -->
+                <!--<iframe id="pedido_one_iframe" src="https://www.pedidoone.com.br/embed/recordarmosqueiro" title="Compra de Abadás - PedidoOne"></iframe>-->
+				
+				<iframe
+				  src="https://ticket.pedido.one/event/1slrdP/checkout?embed=1"
+				  id="pedido_one_iframe"
+				  title="Pedido.one Ingressos"
+				  width="100%"
+				  frameborder="0"
+				  style="border: 0; overflow: hidden"
+				  sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
+				></iframe>
+				
+				
+            </div>
+        </section>
+    </main>
+
+    <div class="floating-buy-button">
+        <a href="#pedidoone">
+            <i class="fas fa-ticket-alt icon"></i> Garanta seu Abadá!
+        </a>
+    </div>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.instagram.com/recordarmosqueiro/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <!-- Adicione outros links sociais se houver -->
+        </div>
+        <p>&copy; 2025 Recordar Mosqueiro. Todos os direitos reservados.</p>
+    </footer>
+
+    <div class="carousel-modal" id="carouselModal">
+        <div class="carousel-content">
+            <button class="carousel-close" onclick="closeCarousel()"><i class="fas fa-times"></i></button>
+            <button class="carousel-nav prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+            <img src="" alt="Imagem do Carnaval" id="carouselImage">
+            <button class="carousel-nav next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <script>
+	
+	
+        // ============================================
+        // CONFETTI ANIMATION
+        // ============================================
+        const confettiColors = ['#FFD700', '#FF6B6B', '#667eea', '#764ba2', '#00BCD4', '#FF9800'];
+        const confettiShapes = ['square', 'serpentine', 'mask', 'note', 'star']; // 'mask', 'note', 'star' são ícones Font Awesome
+        const confettiIcons = {
+            'mask': '<i class="fas fa-mask"></i>',
+            'note': '<i class="fas fa-music"></i>',
+            'star': '<i class="fas fa-star"></i>'
+        };
+
+        function createConfetti() {
+            const container = document.querySelector('.confetti-container');
+            if (!container) return;
+
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+
+            const randomShape = confettiShapes[Math.floor(Math.random() * confettiShapes.length)];
+            confetti.classList.add(randomShape);
+
+            if (confettiIcons[randomShape]) {
+                confetti.innerHTML = confettiIcons[randomShape];
+                confetti.style.color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+            } else {
+                confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+            }
+
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDuration = (Math.random() * 2 + 3) + 's'; // 3 to 5 seconds
+            confetti.style.animationDelay = Math.random() * 0.5 + 's'; // 0 to 0.5 seconds delay
+
+            container.appendChild(confetti);
+
+            confetti.addEventListener('animationend', () => {
+                confetti.remove();
+            });
+        }
+
+        function triggerConfettiBurst() {
+            for (let i = 0; i < 30; i++) {
+                createConfetti();
+            }
+        }
+
+        // Chamar confetes a cada X segundos
+        setInterval(createConfetti, 500); // Cria um confete a cada 0.5 segundos
+
+        // ============================================
+        // VIDEO PLAYBACK LOGIC (Corrigido)
+        // ============================================
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        }
+
+        function initializeVideoPlayer(wrapperId, videoId, playBtnId, muteBtnId, volumeSliderId, progressBarId, progressBarFillId, currentTimeSpanId, durationSpanId, playPauseOverlayId) {
+            const wrapper = document.getElementById(wrapperId);
+            const video = document.getElementById(videoId);
+            const playBtn = document.getElementById(playBtnId);
+            const muteBtn = document.getElementById(muteBtnId);
+            const volumeSlider = document.getElementById(volumeSliderId);
+            const progressBar = document.getElementById(progressBarId);
+            const progressBarFill = document.getElementById(progressBarFillId);
+            const currentTimeSpan = document.getElementById(currentTimeSpanId);
+            const durationSpan = document.getElementById(durationSpanId);
+            const playPauseOverlay = document.getElementById(playPauseOverlayId);
+
+            if (!video || !playBtn || !muteBtn || !volumeSlider || !progressBar || !progressBarFill || !currentTimeSpan || !durationSpan || !playPauseOverlay || !wrapper) {
+                console.error(`Um ou mais elementos do player de vídeo para ${videoId} não foram encontrados.`);
+                return;
+            }
+
+            // Inicializa o volume e o estado de mudo
+            video.volume = 0.5;
+            volumeSlider.value = 0.5;
+            video.dataset.lastVolume = 0.5; // Armazena o último volume não mutado
+            video.dataset.userMuted = 'false'; // Flag para saber se o usuário mutou
+
+            // Play/Pause
+            const togglePlay = () => {
+                if (video.paused || video.ended) {
+                    video.play();
+                    playBtn.textContent = '⏸';
+                    playPauseOverlay.textContent = '⏸';
+                    wrapper.classList.add('playing');
+                } else {
+                    video.pause();
+                    playBtn.textContent = '▶';
+                    playPauseOverlay.textContent = '▶';
+                    wrapper.classList.remove('playing');
+                }
+                triggerConfettiBurst();
+            };
+
+            playBtn.addEventListener('click', togglePlay);
+            playPauseOverlay.addEventListener('click', togglePlay);
+            video.addEventListener('click', togglePlay); // Clicar no vídeo também pausa/play
+
+            // Mute/Unmute
+            muteBtn.addEventListener('click', () => {
+                if (video.muted) {
+                    video.muted = false;
+                    video.volume = parseFloat(video.dataset.lastVolume); // Restaura o último volume
+                    volumeSlider.value = video.volume;
+                    muteBtn.textContent = '🔊';
+                    video.dataset.userMuted = 'false';
+                } else {
+                    video.muted = true;
+                    video.dataset.lastVolume = video.volume; // Salva o volume atual antes de mutar
+                    video.volume = 0;
+                    volumeSlider.value = 0;
+                    muteBtn.textContent = '🔇';
+                    video.dataset.userMuted = 'true';
+                }
+            });
+
+            // Volume Slider
+            volumeSlider.addEventListener('input', () => {
+                video.volume = volumeSlider.value;
+                video.muted = (video.volume === 0);
+                muteBtn.textContent = (video.muted ? '🔇' : '🔊');
+                video.dataset.lastVolume = video.volume;
+                video.dataset.userMuted = (video.muted ? 'true' : 'false');
+            });
+
+            // Time Update (Timeline)
+            video.addEventListener('timeupdate', () => {
+                if (!isNaN(video.duration) && video.duration > 0) {
+                    const progress = (video.currentTime / video.duration) * 100;
+                    progressBarFill.style.width = `${progress}%`;
+                    currentTimeSpan.textContent = formatTime(video.currentTime);
+                } else {
+                    currentTimeSpan.textContent = '0:00';
+                    progressBarFill.style.width = '0%';
+                }
+            });
+
+            // Loaded Metadata (Timeline)
+            video.addEventListener('loadedmetadata', () => {
+                if (!isNaN(video.duration) && video.duration > 0) {
+                    durationSpan.textContent = formatTime(video.duration);
+                    // Garante que o volume e mute estejam corretos ao carregar
+                    if (video.dataset.userMuted === 'true') {
+                        video.muted = true;
+                        volumeSlider.value = 0;
+                        muteBtn.textContent = '🔇';
+                    } else {
+                        video.muted = false;
+                        video.volume = parseFloat(video.dataset.lastVolume || 0.5);
+                        volumeSlider.value = video.volume;
+                        muteBtn.textContent = '🔊';
+                    }
+                } else {
+                    durationSpan.textContent = '0:00';
+                }
+            });
+
+            // Seek (Clicar na Timeline)
+            progressBar.addEventListener('click', (e) => {
+                if (!isNaN(video.duration) && video.duration > 0) {
+                    const rect = progressBar.getBoundingClientRect();
+                    const clickX = e.clientX - rect.left;
+                    const percent = clickX / rect.width;
+                    video.currentTime = percent * video.duration;
+                }
+            });
+
+            // Video Ended
+            video.addEventListener('ended', () => {
+                playBtn.textContent = '▶';
+                playPauseOverlay.textContent = '▶';
+                wrapper.classList.remove('playing');
+                video.currentTime = 0; // Volta para o início
+                progressBarFill.style.width = '0%'; // Reseta a barra
+                currentTimeSpan.textContent = '0:00'; // Reseta o tempo
+            });
+        }
+
+        // Inicializa os players de vídeo
+        window.addEventListener('load', () => {
+            initializeVideoPlayer('videoWrapper1', 'video1', 'firstPlayBtn', 'firstMuteBtn', 'firstVolumeSlider', 'firstProgressBar', 'firstProgressBarFill', 'firstCurrentTimeSpan', 'firstDurationSpan', 'firstPlayPauseOverlay');
+            initializeVideoPlayer('videoWrapper2', 'video2', 'secondPlayBtn', 'secondMuteBtn', 'secondVolumeSlider', 'secondProgressBar', 'secondProgressBarFill', 'secondCurrentTimeSpan', 'secondDurationSpan', 'secondPlayPauseOverlay');
+
+            // Autoplay para o primeiro vídeo (com fallback para mudo)
+            const firstVideo = document.getElementById('video1');
+            const firstWrapper = document.getElementById('videoWrapper1');
+            const firstPlayBtn = document.getElementById('firstPlayBtn');
+            const firstVolumeSlider = document.getElementById('firstVolumeSlider');
+            const firstMuteBtn = document.getElementById('firstMuteBtn');
+            const firstPlayPauseOverlay = document.getElementById('firstPlayPauseOverlay');
+
+            if (firstVideo) {
+                setTimeout(() => {
+                    firstVideo.muted = false; // Tenta iniciar com som
+                    firstVideo.volume = 0.5;
+                    if (firstVolumeSlider) firstVolumeSlider.value = 0.5;
+                    if (firstMuteBtn) firstMuteBtn.textContent = '🔊';
+                    firstVideo.dataset.lastVolume = 0.5;
+                    firstVideo.dataset.userMuted = 'false';
+
+                    firstVideo.play().then(() => {
+                        firstWrapper.classList.add('playing');
+                        if (firstPlayBtn) firstPlayBtn.textContent = '⏸';
+                        if (firstPlayPauseOverlay) firstPlayPauseOverlay.textContent = '⏸';
+                        console.log('Primeiro vídeo iniciado com som.');
+                    }).catch(err => {
+                        console.log('Autoplay com som bloqueado pelo navegador. Tentando mudo...', err);
+                        // Fallback: se bloquear com som, tenta mudo
+                        firstVideo.muted = true;
+                        if (firstMuteBtn) firstMuteBtn.textContent = '🔇';
+                        if (firstVolumeSlider) firstVolumeSlider.value = 0;
+                        firstVideo.dataset.userMuted = 'true'; // Marca como mutado pelo sistema
+                        firstVideo.play().then(() => {
+                            firstWrapper.classList.add('playing');
+                            if (firstPlayBtn) firstPlayBtn.textContent = '⏸';
+                            if (firstPlayPauseOverlay) firstPlayPauseOverlay.textContent = '⏸';
+                            console.log('Primeiro vídeo iniciado mudo (fallback).');
+                        }).catch(err => {
+                            console.log('Erro ao tentar tocar vídeo mudo no autoplay:', err);
+                            firstWrapper.classList.remove('playing');
+                            if (firstPlayBtn) firstPlayBtn.textContent = '▶';
+                            if (firstPlayPauseOverlay) firstPlayPauseOverlay.textContent = '▶';
+                        });
+                    });
+                }, 200);
+            }
+        });
+
+        // ============================================
+        // INTERSECTION OBSERVER (AUTOPLAY ON SCROLL)
+        // ============================================
+        document.querySelectorAll('.video-wrapper').forEach(wrapper => {
+            const video = wrapper.querySelector('video');
+            const playBtn = wrapper.querySelector('button[id$="PlayBtn"]');
+            const muteBtn = wrapper.querySelector('button[id$="MuteBtn"]');
+            const volumeSlider = wrapper.querySelector('input[id$="VolumeSlider"]');
+            const playPauseOverlay = wrapper.querySelector('div[id$="PlayPauseOverlay"]');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Quando o vídeo entra na visualização
+                        if (video.paused) {
+                            // Tenta tocar com som
+                            video.muted = false;
+                            video.volume = parseFloat(video.dataset.lastVolume || 0.5);
+                            if (volumeSlider) volumeSlider.value = video.volume;
+                            if (muteBtn) muteBtn.textContent = '🔊';
+                            video.dataset.userMuted = 'false';
+
+                            video.play().then(() => {
+                                wrapper.classList.add('playing');
+                                if (playBtn) playBtn.textContent = '⏸';
+                                if (playPauseOverlay) playPauseOverlay.textContent = '⏸';
+                            }).catch(err => {
+                                // Fallback: se bloquear com som, tenta mudo
+                                video.muted = true;
+                                if (muteBtn) muteBtn.textContent = '🔇';
+                                if (volumeSlider) volumeSlider.value = 0;
+                                video.dataset.userMuted = 'true';
+                                video.play().then(() => {
+                                    wrapper.classList.add('playing');
+                                    if (playBtn) playBtn.textContent = '⏸';
+                                    if (playPauseOverlay) playPauseOverlay.textContent = '⏸';
+                                }).catch(err => {
+                                    console.log('Erro ao tentar tocar vídeo mudo no autoplay:', err);
+                                    wrapper.classList.remove('playing');
+                                    if (playBtn) playBtn.textContent = '▶';
+                                    if (playPauseOverlay) playPauseOverlay.textContent = '▶';
+                                });
+                            });
+                        }
+                    } else {
+                        // Quando o vídeo sai da visualização
+                        if (!video.paused) {
+                            video.pause();
+                            wrapper.classList.remove('playing');
+                            if (playBtn) playBtn.textContent = '▶';
+                            if (playPauseOverlay) playPauseOverlay.textContent = '▶';
+                        }
+                    }
+                });
+            }, { threshold: 0.7 }); // 70% do vídeo visível
+            observer.observe(wrapper);
+        });
+
+        // ============================================
+        // SMOOTH SCROLL
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ============================================
+        // CAROUSEL
+        // ============================================
+        const galleryImages = [
+            'https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017895/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110821_pvj1ey.png',
+            'https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017893/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110808_fehzwu.png',
+            'https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017889/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110709_u1urcj.png',
+            'https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017890/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110757_eqmz7d.png',
+            'https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017887/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110639_mx9a7g.png',
+            'https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017885/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110613_igijb6.png',
+            'https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017884/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110516_a3glic.png'
+        ];
+        let currentSlide = 0;
+
+        // Popula a galeria com as imagens
+        const galleryGrid = document.querySelector('.gallery-grid');
+        if (galleryGrid) {
+            galleryImages.forEach((src, index) => {
+                const galleryItem = document.createElement('div');
+                galleryItem.classList.add('gallery-item');
+                galleryItem.innerHTML = `<img src="${src}" alt="Foto do Carnaval ${index + 1}">`;
+                galleryItem.addEventListener('click', () => openCarousel(index));
+                galleryGrid.appendChild(galleryItem);
+            });
+        }
+
+        function openCarousel(index) {
+            currentSlide = index;
+            const carouselImage = document.getElementById('carouselImage');
+            const carouselModal = document.getElementById('carouselModal');
+            carouselImage.src = galleryImages[currentSlide];
+            carouselModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeCarousel() {
+            document.getElementById('carouselModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = galleryImages.length - 1;
+            if (currentSlide >= galleryImages.length) currentSlide = 0;
+            document.getElementById('carouselImage').src = galleryImages[currentSlide];
+            triggerConfettiBurst(); // Trigger confetti on slide change
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeCarousel();
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // ============================================
+        // FAQ ACCORDION
+        // ============================================
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isOpen = answer.style.display === 'block';
+                // Fecha todos os outros
+                document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+                document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
+                if (!isOpen) {
+                    answer.style.display = 'block';
+                    question.classList.add('active');
+                }
+                triggerConfettiBurst(); // Trigger confetti on FAQ interaction
+            });
+        });
+
+        // ============================================
+        // PEDIDOONE IFRAME HEIGHT (Corrigido)
+        // ============================================
+        const iframe = document.getElementById('pedido_one_iframe');
+        if (iframe) { // Garante que o iframe existe antes de adicionar o listener
+            window.addEventListener('message', function (e) {
+                if (e.data && e.data.iframeHeight) {
+                    iframe.style.height = e.data.iframeHeight + 'px';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
