@@ -1,991 +1,1330 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Recordar Mosqueiro — Viva o Carnaval 90's</title>
-  <meta name="description" content="Reviva os carnavais inesquecíveis de Mosqueiro com o bloco Recordar Mosqueiro — abadás a partir de R$ 50. Compra segura via PedidoOne." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="icon" href="/favicon.ico" />
-  <style>
-    :root{
-      /* Cores de Carnaval Vibrantes */
-      --carnaval-from: #FF416C; /* Rosa vibrante */
-      --carnaval-to: #FF4B2B;   /* Laranja vibrante */
-      --accent-yellow: #FFD700; /* Amarelo ouro para destaque */
-      --accent-blue: #00BFFF;   /* Azul céu para contraste */
-      --text: #2c3e50;          /* Texto escuro para legibilidade */
-      --muted: #7f8c8d;         /* Texto secundário */
-      --card-bg: rgba(255,255,255,0.95); /* Fundo de card mais opaco */
-      --max-width: 1200px;
-      --confetti-count: 60; /* ajuste global */
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%; margin:0; padding:0;} /* Removido padding e margem padrão */
-    body{
-      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      color:var(--text);
-      background: linear-gradient(180deg, #FFF8F0 0%, #FFFFFF 100%); /* Fundo mais claro e alegre */
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
-      overflow-x:hidden;
-    }
-    .container{
-      max-width:var(--max-width);
-      margin:0 auto;
-      padding:0 28px; /* Ajustado padding horizontal */
-      position:relative;
-      z-index:2;
-    }
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:24px; /* Aumentado o gap para melhor espaçamento */
-      padding:16px 0; /* Aumentado o padding */
-      position:relative;
-    }
-    .logo{display:flex;gap:16px;align-items:center} /* Aumentado o gap */
-    .logo img{
-      width:280px; /* Ajustado para um tamanho menor */
-      height:180px; /* Ajustado para um tamanho menor */
-      object-fit:contain;
-      border-radius:16px; /* Mantido arredondado */
-      background:rgba(255,255,255,0.7); /* Fundo branco com transparência */
-      backdrop-filter: blur(8px); /* Efeito de vidro fosco/água */
-      padding:12px; /* Padding para a imagem dentro do fundo */
-      box-shadow:0 15px 40px rgba(0,0,0,0.1); /* Sombra um pouco mais suave */
-      border: 1px solid rgba(255,255,255,0.5); /* Borda sutil para o efeito */
-    }
-    .brand {
-      display: flex;
-      flex-direction: column;
-      justify-content: center; /* Alinha o texto verticalmente com a logo */
-    }
-    .brand h1{margin:0;font-size:28px;font-weight:900;color:var(--text)} /* Fonte maior e mais bold */
-    .brand p{margin:0;font-size:18px;color:var(--muted)} /* Fonte maior */
-    nav a{ text-decoration:none;margin-left:24px;color:var(--text);font-weight:700;transition:color .2s ease }
-    nav a:hover{color:var(--carnaval-from)}
-    /* Animated background shapes */
-    .bg-visual {
-      position:fixed;
-      inset:0;
-      z-index:0;
-      pointer-events:none;
-      overflow:hidden;
-    }
-    .blob{
-      position:absolute;
-      filter:blur(60px) saturate(180%); /* Blur e saturação maiores */
-      opacity:0.4; /* Mais visível */
-      transform:translate3d(0,0,0);
-      will-change:transform;
-      mix-blend-mode:screen;
-      animation:float 18s ease-in-out infinite; /* Animação mais longa */
-    }
-    .blob.a{width:700px;height:700px;border-radius:50%;background:linear-gradient(135deg,var(--carnaval-from),var(--accent-yellow));top:-200px;left:-150px;animation-duration:22s}
-    .blob.b{width:600px;height:600px;border-radius:50%;background:linear-gradient(135deg,var(--accent-blue),var(--carnaval-to));bottom:-220px;right:-120px;animation-duration:28s;opacity:0.3}
-    @keyframes float{
-      0%{transform:translateY(0) translateX(0)}
-      50%{transform:translateY(30px) translateX(15px)}
-      100%{transform:translateY(0) translateX(0)}
-    }
-    /* Hero */
-    .hero{
-      display:grid;
-      grid-template-columns: 1fr 480px; /* Ajustado para melhor alinhamento */
-      gap:40px;
-      align-items:flex-start; /* Alinha o topo dos cards */
-      margin-top:36px; /* Margem superior para o hero */
-      margin-bottom:60px; /* Margem inferior para o hero */
-      position:relative;
-    }
-    .hero-card{
-      padding:36px; /* Padding maior */
-      border-radius:24px; /* Borda mais arredondada */
-      background: var(--card-bg);
-      backdrop-filter: blur(10px); /* Blur maior */
-      box-shadow: 0 30px 80px rgba(0,0,0,0.1); /* Sombra mais pronunciada */
-      position:relative;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,0.8); /* Borda mais visível */
-    }
-    .hero-media{
-      position:relative;
-      border-radius:18px; /* Borda mais arredondada */
-      overflow:hidden;
-      /* Removido height:320px; para permitir que o contêiner do vídeo defina a altura */
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:linear-gradient(180deg, rgba(255,65,108,0.1), rgba(255,75,43,0.05)); /* Gradiente mais festivo */
-      box-shadow: inset 0 -30px 80px rgba(0,0,0,0.08), 0 20px 50px rgba(0,0,0,0.1); /* Sombras mais intensas */
-      transform:translateZ(0);
-    }
-    .hero-media video{width:100%;height:100%;object-fit:cover;display:block}
-    /* Video Player Container for Mute/Play Overlay */
-    .video-player-container {
-      position: relative;
-      width: 100%;
-      /* Definindo uma altura padrão para os contêineres de vídeo */
-      height: 550px; /* Altura padrão para ambos os vídeos */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 18px; /* Aplica a borda arredondada ao contêiner do vídeo */
-      overflow: hidden; /* Garante que o conteúdo interno também seja arredondado */
-    }
-    /* Estilo específico para o vídeo dentro do hero-media, se precisar de altura diferente */
-    .hero-media .video-player-container {
-        height: 320px; /* Mantém a altura original para o vídeo do hero, se desejado */
-    }
-    .video-player-container video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .video-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.4);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 700;
-      font-size: 1.2em;
-      cursor: pointer;
-      transition: opacity 0.3s ease;
-      z-index: 1;
-    }
-    .video-overlay.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .video-overlay .play-button {
-      font-size: 3em;
-      margin-bottom: 10px;
-    }
-    .video-overlay .mute-icon {
-      font-size: 0.8em;
-      background: rgba(0,0,0,0.6);
-      padding: 5px 10px;
-      border-radius: 8px;
-    }
-    /* Custom Video Controls - REMOVIDOS para simular player do YouTube */
-    .custom-video-controls {
-      display: none !important; /* Esconde completamente os controles customizados */
-    }
-    .kicker{
-      display:inline-block;padding:10px 18px;border-radius:999px;
-      background: linear-gradient(90deg,var(--carnaval-from),var(--carnaval-to));
-      color:white;font-weight:900;font-size:15px; /* Fonte maior e mais bold */
-      box-shadow:0 12px 36px rgba(255,65,108,0.25); /* Sombra mais vibrante */
-    }
-    h2{font-size:36px;font-weight:900;margin-bottom:16px;color:var(--text)}
-    .hero h2{margin:20px 0 16px;font-size:48px;line-height:1.1;font-weight:900;color:var(--text)} /* Fonte maior e mais bold */
-    .lead{margin:0 0 28px;color:var(--muted);font-size:18px;line-height:1.6} /* Fonte maior */
-    .cta-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap} /* Gap maior */
-    .btn{display:inline-flex;align-items:center;gap:12px;padding:16px 28px;border-radius:16px;font-weight:800;border:none;cursor:pointer;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
-    .btn-primary{background: linear-gradient(90deg,var(--carnaval-from),var(--carnaval-to));color:white;box-shadow:0 18px 50px rgba(255,65,108,0.35)}
-    .btn-primary:hover{transform:translateY(-6px);box-shadow:0 28px 70px rgba(255,65,108,0.45)}
-    .btn-ghost{background:transparent;border:2px solid rgba(0,0,0,0.1);color:var(--text)} /* Borda mais grossa */
-    .btn-ghost:hover{background:rgba(0,0,0,0.05);transform:translateY(-3px);box-shadow:0 10px 25px rgba(0,0,0,0.08)}
-    /* Iframe container for checkout */
-    .checkout-embed-container {
-      padding: 15px; /* Padding maior */
-      border-radius: 18px; /* Borda mais arredondada */
-      background: linear-gradient(180deg,var(--card-bg),rgba(255,255,255,0.9));
-      box-shadow: 0 18px 50px rgba(0,0,0,0.1);
-      text-align: center;
-      position: relative;
-      height: 600px; /* Altura inicial maior */
-      overflow: hidden;
-      border:1px solid rgba(255,255,255,0.8);
-    }
-    .checkout-embed-container iframe {
-      display: block;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      overflow: hidden;
-    }
-    /* Ajustes para a seção de data/ingressos */
-    .info-block{
-      margin-top:24px;
-      display:flex;
-      gap:16px; /* Ajustei o gap */
-      align-items:center;
-      flex-wrap:wrap;
-      justify-content: space-around; /* Distribui os itens */
-      text-align: center; /* Centraliza o texto dentro dos itens */
-    }
-    .info-item{
-      flex:1;
-      min-width: 150px; /* Largura mínima para evitar quebras */
-      padding: 5px 0; /* Pequeno padding para respiro */
-    }
-    .info-item .small{font-size:14px;color:var(--muted); white-space: nowrap;} /* Evita quebra de linha */
-    .info-item .value{font-weight:800;font-size:17px;line-height:1.3;color:var(--text); white-space: nowrap;} /* Fonte maior e mais bold, evita quebra */
-    .info-divider{width:1px;background:rgba(0,0,0,0.1);height:60px} /* Divisor mais visível */
-    .info-item .price{font-size:32px;margin:6px 0 10px;font-weight:900;color:var(--carnaval-from); white-space: nowrap;} /* Preço maior e mais bold, evita quebra */
-    .info-item .small-muted{font-size:14px;color:var(--muted); white-space: nowrap;}
-    .text-center{text-align:center}
-    /* Gallery */
-    .gallery{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Colunas responsivas */
-      gap:16px; /* Gap maior */
-      margin-top:30px;
-    }
-    .gallery a{
-      display:block;
-      border-radius:12px; /* Borda mais arredondada */
-      overflow:hidden;
-      box-shadow:0 8px 20px rgba(0,0,0,0.1); /* Sombra mais suave */
-      transition:transform .2s ease,box-shadow .2s ease;
-      cursor:pointer;
-    }
-    .gallery a:hover{transform:translateY(-5px);box-shadow:0 15px 30px rgba(0,0,0,0.15)}
-    .gallery img{width:100%;height:150px;object-fit:cover;display:block} /* Altura fixa para imagens */
-    /* Instagram Followers Section */
-    .instagram-followers {
-      background: linear-gradient(90deg, var(--accent-blue), #8A2BE2); /* Gradiente azul/roxo */
-      color: white;
-      padding: 30px;
-      border-radius: 20px;
-      text-align: center;
-      margin-top: 60px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-    }
-    .instagram-followers h3 {
-      font-size: 32px;
-      font-weight: 900;
-      margin-bottom: 10px;
-    }
-    .instagram-followers p {
-      font-size: 18px;
-      margin-bottom: 0;
-    }
-    /* FAQ */
-    .faq-item{
-      background:var(--card-bg);
-      border-radius:16px;
-      padding:24px;
-      margin-bottom:16px;
-      box-shadow:0 10px 30px rgba(0,0,0,0.05);
-      border:1px solid rgba(255,255,255,0.8);
-    }
-    .faq-item h3{font-size:20px;margin-top:0;margin-bottom:10px;color:var(--text)}
-    .faq-item p{font-size:16px;color:var(--muted);margin-bottom:0}
-    /* Footer */
-    footer{
-      text-align:center;
-      padding:40px 0;
-      font-size:14px;
-      color:var(--muted);
-      margin-top:60px;
-      border-top:1px solid rgba(0,0,0,0.05);
-    }
-    footer a{color:var(--carnaval-from);text-decoration:none;font-weight:600}
-    footer a:hover{text-decoration:underline}
-    /* Lightbox (Carousel) Styles */
-    .lightbox {
-      display: none; /* Hidden by default */
-      position: fixed; /* Stay in place */
-      z-index: 1000; /* Sit on top */
-      left: 0;
-      top: 0;
-      width: 100%; /* Full width */
-      height: 100%; /* Full height */
-      overflow: auto; /* Enable scroll if needed */
-      background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .lightbox.active {
-      display: flex;
-      opacity: 1;
-    }
-    .lightbox-content {
-      position: relative;
-      max-width: 90%;
-      max-height: 90%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .lightbox-content img {
-      max-width: 100%;
-      max-height: 100%;
-      display: block;
-      object-fit: contain;
-    }
-    .lightbox-close, .lightbox-prev, .lightbox-next {
-      cursor: pointer;
-      position: absolute;
-      color: white;
-      font-size: 40px;
-      font-weight: bold;
-      transition: 0.3s;
-      user-select: none;
-      padding: 16px;
-      background: rgba(0,0,0,0.5);
-      border-radius: 50%;
-      line-height: 1;
-      height: 60px;
-      width: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .lightbox-close {
-      top: 20px;
-      right: 30px;
-      font-size: 30px;
-    }
-    .lightbox-prev {
-      left: 20px;
-    }
-    .lightbox-next {
-      right: 20px;
-    }
-    .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
-      color: #bbb;
-      background: rgba(0,0,0,0.7);
-    }
-    /* Estilos para as serpentinas */
-    .ribbon {
-      position: absolute;
-      top: -100px; /* Começa acima da tela */
-      background: #FFD700; /* Cor padrão, será sobrescrita */
-      width: 10px;
-      height: 200px;
-      opacity: 0.8;
-      transform-origin: top center;
-      animation: fallAndSway linear infinite;
-      pointer-events: none;
-      z-index: 9999; /* Garante que fique na frente */
-    }
-    @keyframes fallAndSway {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.8;
-      }
-      25% {
-        transform: translateY(25vh) rotate(10deg);
-      }
-      50% {
-        transform: translateY(50vh) rotate(-10deg);
-        opacity: 0.9;
-      }
-      75% {
-        transform: translateY(75vh) rotate(5deg);
-      }
-      100% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0;
-      }
-    }
-    /* Responsive adjustments */
-    @media (max-width: 1024px) {
-      .hero{grid-template-columns:1fr}
-      .hero-card{padding:28px}
-      .checkout-embed-container{height:500px}
-      .info-block{flex-direction:column;align-items:flex-start;gap:10px}
-      .info-item{min-width:unset;width:100%;text-align:center}
-      .info-item:last-child{min-width:unset;width:100%;text-align:center}
-      .info-divider{display:none}
-      .hero h2{font-size:40px}
-      .lead{font-size:17px}
-      .cta-row{justify-content:center}
-      header{flex-direction:column;gap:10px}
-      nav{margin-top:10px}
-      .logo{justify-content:center}
-      .brand h1{font-size:24px} /* Ajustado para telas menores */
-      .brand p{font-size:16px} /* Ajustado para telas menores */
-      .lightbox-close, .lightbox-prev, .lightbox-next {
-        font-size: 30px;
-        height: 50px;
-        width: 50px;
-        padding: 10px;
-      }
-      .lightbox-close { top: 10px; right: 10px; }
-      .lightbox-prev { left: 10px; }
-      .lightbox-next { right: 10px; }
-    }
-    @media (max-width: 768px) {
-      .container{padding:16px}
-      .hero h2{font-size:36px}
-      .lead{font-size:16px}
-      .gallery{grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));}
-      .gallery img{height:120px;}
-      .instagram-followers h3 { font-size: 28px; }
-      .instagram-followers p { font-size: 16px; }
-      /* Ajuste para o contêiner de vídeo em telas menores */
-      .video-player-container {
-        height: auto; /* Remove altura fixa para responsividade */
-        padding-bottom: 56.25%; /* Proporção 16:9 (altura / largura * 100) */
-        position: relative;
-      }
-      .video-player-container video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
-      /* Mantém a altura original para o vídeo do hero, se desejado, mas com responsividade */
-      .hero-media .video-player-container {
-          padding-bottom: 75%; /* Proporção 4:3 para o vídeo do hero, se for o caso */
-      }
-    }
-    @media (max-width: 480px) {
-      .hero-card{padding:20px}
-      .hero h2{font-size:32px}
-      .lead{font-size:15px}
-      .btn{padding:14px 24px;font-size:15px}
-      .kicker{font-size:14px;padding:8px 15px}
-      .info-item .price{font-size:28px}
-      .info-item .value{font-size:16px}
-      .info-item .small{font-size:13px}
-      .gallery{grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));}
-      .gallery img{height:100px;}
-      .logo img{width:100px;height:100px;padding:10px} /* Ajustado para telas muito pequenas */
-      .brand h1{font-size:20px}
-      .brand p{font-size:14px}
-      nav{display:none} /* Esconde a navegação em telas muito pequenas */
-      .lightbox-close, .lightbox-prev, .lightbox-next {
-        font-size: 24px;
-        height: 40px;
-        width: 40px;
-        padding: 5px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recordar Mosqueiro - Carnaval 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <!-- Font Awesome para ícones sociais no footer, se necessário -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Confetes, Serpentinas e Elementos de Carnaval */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            animation: fall 3s linear forwards, fadeOut 1s ease-out 2s forwards;
+        }
+
+        .confetti.square {
+            width: 10px;
+            height: 10px;
+        }
+
+        .confetti.serpentine {
+            width: 8px;
+            height: 40px;
+            border-radius: 4px;
+        }
+
+        .confetti.mask {
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+        }
+
+        .confetti.note {
+            width: 15px;
+            height: 15px;
+            font-size: 15px;
+        }
+
+        .confetti.star {
+            width: 15px;
+            height: 15px;
+            font-size: 15px;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            66.67% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(150vh) rotate(720deg);
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            height: 80px;
+            background: white;
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        .brand .instagram {
+            color: #E1306C;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Botão Flutuante de Compra */
+        .floating-buy-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            animation: pulse 2s infinite;
+        }
+
+        .floating-buy-button a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .floating-buy-button a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(255, 107, 107, 0.6);
+        }
+
+        .floating-buy-button .icon {
+            font-size: 1.5rem;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Hero Section - SUPER ESTILIZADO */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efeito de brilho de fundo */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg at 50% 50%, #ffeb3b, #ff9800, #ff5722, #e91e63, #9c27b0, #673ab7, #3f51b5, #2196f3, #03a9f4, #00bcd4, #009688, #4caf50, #8bc34a, #cddc39, #ffeb3b);
+            animation: rotateBackground 20s linear infinite;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        @keyframes rotateBackground {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero .badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700); /* Dourado vibrante */
+            color: #8B4513; /* Marrom para contraste */
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+            animation: bounce 2s infinite, glow 1.5s infinite alternate;
+            transform-origin: center bottom;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero .badge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            animation: rotateLight 3s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes rotateLight {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.7); }
+            100% { box-shadow: 0 0 25px rgba(255, 215, 0, 1), 0 0 35px rgba(255, 165, 0, 0.8); }
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FF4500); /* Gradiente dourado/laranja/vermelho */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: textGlow 2s infinite alternate, scaleIn 1s ease-out;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 165, 0, 0.6); }
+            100% { text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 165, 0, 0.8), 0 0 40px rgba(255, 69, 0, 0.6); }
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero p strong {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+        }
+
+        .hero .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        .hero .cta-buttons .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero .cta-buttons .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+            z-index: -1;
+            transition: transform 0.5s ease;
+            transform: translateX(-100%);
+        }
+
+        .hero .cta-buttons .btn:hover::before {
+            transform: translateX(0%);
+        }
+
+        .hero .cta-buttons .btn-primary {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+            animation: glowButton 2s infinite alternate;
+        }
+
+        .hero .cta-buttons .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255, 107, 107, 0.6);
+        }
+
+        .hero .cta-buttons .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .hero .cta-buttons .btn-secondary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+            background: #667eea;
+            color: white;
+        }
+
+        @keyframes glowButton {
+            0% { box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4); }
+            100% { box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6), 0 0 15px rgba(255, 107, 107, 0.3); }
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Video Section */
+        .video-section, .second-video-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 2rem;
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .video-wrapper:hover .video-controls,
+        .video-wrapper.playing .video-controls {
+            opacity: 1;
+        }
+
+        .video-controls button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .video-controls input[type="range"] {
+            flex-grow: 1;
+            margin: 0 1rem;
+            -webkit-appearance: none;
+            height: 5px;
+            background: #555;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .video-controls input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #FF6B6B;
+            cursor: pointer;
+        }
+
+        .video-controls .volume-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .video-controls .play-pause-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0,0,0,0.4);
+            color: white;
+            font-size: 4rem;
+            cursor: pointer;
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .video-wrapper.playing .play-pause-overlay {
+            opacity: 0;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .gallery-section h2 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+
+        .gallery-section p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 2rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Carousel Modal */
+        .carousel-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .carousel-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .carousel-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .carousel-close, .carousel-nav {
+            position: absolute;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .carousel-close {
+            top: 20px;
+            right: 20px;
+        }
+
+        .carousel-nav.prev {
+            left: -50px;
+        }
+
+        .carousel-nav.next {
+            right: -50px;
+        }
+
+        .carousel-close:hover, .carousel-nav:hover {
+            background: rgba(255,255,255,0.4);
+        }
+
+        /* Second Video Section Specific Styles */
+        .second-video-section h2 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 25px rgba(255, 165, 0, 0.6);
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FF4500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textPulse 2s infinite alternate;
+            line-height: 1.2;
+        }
+
+        @keyframes textPulse {
+            0% { transform: scale(1); text-shadow: 0 0 15px rgba(255, 215, 0, 0.8); }
+            100% { transform: scale(1.02); text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 165, 0, 0.8); }
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            color: white;
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+
+        .faq-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .faq-question {
+            padding: 1.2rem 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.15);
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .faq-question .icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .faq-question.active .icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1.6;
+            background: rgba(255,255,255,0.05);
+            display: none;
+        }
+
+        /* PedidoOne Section */
+        .pedidoone-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .pedidoone-section h2 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 2rem;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+
+        .pedidoone-iframe-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            min-height: 600px; /* Altura mínima para o iframe */
+            display: flex;
+        }
+
+        .pedidoone-iframe-container iframe {
+            width: 100%;
+            height: 100%; /* Será ajustado via JS */
+            border: none;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        footer .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 0.8rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer .social-links a:hover {
+            color: #667eea;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Esconde links de navegação em telas menores */
+            }
+
+            .logo-container {
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero .cta-buttons .btn {
+                width: 100%;
+            }
+
+            .second-video-section h2 {
+                font-size: 2.5rem;
+            }
+
+            .carousel-nav.prev {
+                left: 10px;
+            }
+
+            .carousel-nav.next {
+                right: 10px;
+            }
+
+            .carousel-close {
+                top: 10px;
+                right: 10px;
+                font-size: 1.2rem;
+                padding: 0.7rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="bg-visual">
-    <div class="blob a"></div>
-    <div class="blob b"></div>
-  </div>
-  <!-- Canvas elements are now positioned absolutely and won't affect layout flow -->
-  <canvas id="confettiCanvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;"></canvas>
-  <canvas id="fireworksCanvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;"></canvas>
-  <div id="ribbonsContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:9999;"></div>
-  <div class="container">
+    <div class="confetti-container"></div>
+
     <header>
-      <div class="logo">
-        <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767019330/Recordar%20Mosqueiro/image-removebg-preview_ze8y8s.png" alt="Logo Recordar Mosqueiro">
-        <div class="brand">
-          <h1>Recordar Mosqueiro</h1>
-          <p>@recordarmosqueirooficial</p>
-        </div>
-      </div>
-      <nav>
-        <a href="#sobre">Sobre</a>
-        <a href="#galeria">Galeria</a>
-        <a href="#faq">FAQ</a>
-        <a href="https://www.instagram.com/recordarmosqueirooficial/" target="_blank" rel="noopener noreferrer">Instagram</a>
-      </nav>
+        <nav>
+            <div class="logo-container">
+                <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767019330/Recordar%20Mosqueiro/image-removebg-preview_ze8y8s.png" alt="Logo Recordar Mosqueiro" class="logo">
+                <div class="brand">
+                    <h1>Recordar Mosqueiro</h1>
+                    <a href="https://www.instagram.com/recordarmosqueiro/" target="_blank" class="instagram">@recordarmosqueiro</a>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#hero">Início</a></li>
+                <li><a href="#gallery">Fotos</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#pedidoone">Compra</a></li>
+            </ul>
+        </nav>
     </header>
-    <main>
-      <section class="hero">
-        <div class="hero-card">
-          <span class="kicker">🌟 Viva o Carnaval • Abadás Limitados</span>
-          <h2>A folia que marcou uma geração está de volta!</h2>
-          <p class="lead">Prepare-se para uma viagem no tempo! O Bloco Recordar Mosqueiro traz de volta a alegria e a energia contagiante dos antigos carnavais. Garanta seu abadá e faça parte dessa folia que promete ficar para a história!</p>
-          <div class="hero-media" id="heroMedia">
-            <div class="video-player-container"> <!-- Removido o estilo inline height: 320px daqui -->
-              <video id="promoVideo2024" src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767019836/RECORDAR_MOSQUEIRO_menor_mmmmm_tupafy.mp4" loop playsinline preload="auto"></video>
-              <div class="video-overlay">
-                <span class="play-button">▶</span>
-                <span class="mute-icon">🔇 Mudo</span>
-              </div>
-              <!-- Controles customizados removidos conforme sua solicitação anterior -->
-            </div>
-          </div>
-          <div class="info-block">
-            <div class="info-item">
-              <p class="small">Data do Evento</p>
-              <p class="value">16 de Fevereiro</p>
-            </div>
-            <div class="info-divider"></div>
-            <div class="info-item">
-              <p class="small">Local</p>
-              <p class="value">Mosqueiro</p>
-            </div>
-            <div class="info-divider"></div>
-            <div class="info-item">
-              <p class="small">Ingressos a partir de</p>
-              <p class="price">R$ 50,00</p>
-            </div>
-          </div>
-          <div class="cta-row" style="margin-top: 30px;">
-            <a id="buyNow" class="btn btn-primary" href="https://ticket.pedido.one/event/1slrdP/checkout" target="_blank" rel="noopener noreferrer">
-              Garanta seu Abadá
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-            </a>
-            <a class="btn btn-ghost" href="https://www.instagram.com/recordarmosqueirooficial/" target="_blank" rel="noopener noreferrer">
-              Ver no Instagram
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            </a>
-          </div>
-        </div>
-        <div class="checkout-embed-container" id="checkout-section">
-          <iframe id="pedido_one_iframe" src="https://ticket.pedido.one/event/1slrdP/checkout?embed=1" width="100%" height="100%" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation"></iframe>
-        </div>
-      </section>
-      <section id="galeria" class="container">
-        <h2 class="text-center">Momentos Inesquecíveis do Nosso Carnaval!</h2>
-        <p class="lead text-center">Confira fotos e vídeos que capturam a essência da nossa folia. Siga-nos no Instagram para mais!</p>
-        <div class="gallery">
-          <a href="#" data-img="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017895/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110821_pvj1ey.png" alt="Carnaval Recordar Mosqueiro 1">
-            <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017895/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110821_pvj1ey.png" alt="Carnaval Recordar Mosqueiro 1">
-          </a>
-          <a href="#" data-img="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017893/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110808_fehzwu.png" alt="Carnaval Recordar Mosqueiro 2">
-            <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017893/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110808_fehzwu.png" alt="Carnaval Recordar Mosqueiro 2">
-          </a>
-          <a href="#" data-img="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017889/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110709_u1urcj.png" alt="Carnaval Recordar Mosqueiro 3">
-            <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017889/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110709_u1urcj.png" alt="Carnaval Recordar Mosqueiro 3">
-          </a>
-          <a href="#" data-img="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017890/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110757_eqmz7d.png" alt="Carnaval Recordar Mosqueiro 4">
-            <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017890/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110757_eqmz7d.png" alt="Carnaval Recordar Mosqueiro 4">
-          </a>
-          <a href="#" data-img="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017887/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110639_mx9a7g.png" alt="Carnaval Recordar Mosqueiro 5">
-            <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017887/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110639_mx9a7g.png" alt="Carnaval Recordar Mosqueiro 5">
-          </a>
-          <a href="#" data-img="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017885/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110613_igijb6.png" alt="Carnaval Recordar Mosqueiro 6">
-            <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017885/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110613_igijb6.png" alt="Carnaval Recordar Mosqueiro 6">
-          </a>
-          <a href="#" data-img="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017884/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110516_a3glic.png" alt="Carnaval Recordar Mosqueiro 7">
-            <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017884/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110516_a3glic.png" alt="Carnaval Recordar Mosqueiro 7">
-          </a>
-        </div>
-        <h2 class="text-center" style="margin-top: 40px;">Nosso 2025 Foi Assim:</h2>
-        <div class="video-player-container" style="height: 550px;">
-          <video id="promoVideo2025" src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767028762/2_online-video-cutter.com_dyqd1m.mp4" loop playsinline preload="auto"></video>
-          <div class="video-overlay">
-            <span class="play-button">▶</span>
-            <span class="mute-icon">🔇 Mudo</span>
-          </div>
-          <!-- Controles customizados removidos conforme sua solicitação anterior -->
-        </div>
-        <div class="instagram-followers">
-          <h3>Mais de 10.000 Seguidores!</h3>
-          <p>Junte-se à nossa comunidade no Instagram e não perca nada da folia!</p>
-          <a href="https://www.instagram.com/recordarmosqueirooficial/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top: 20px;">
-            Seguir no Instagram
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-          </a>
-        </div>
-      </section>
-      <section id="faq" class="container">
-        <h2 class="text-center">Perguntas Frequentes</h2>
-        <div class="faq-item">
-          <h3>O que é o Bloco Recordar Mosqueiro?</h3>
-          <p>Somos um bloco de carnaval que busca reviver a magia e a nostalgia dos carnavais da década de 90 em Mosqueiro, com muita alegria, música e tradição.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Como faço para comprar meu abadá?</h3>
-          <p>Você pode garantir seu abadá diretamente nesta página, através do nosso sistema de vendas seguro integrado com o PedidoOne. Basta clicar em "Garanta seu Abadá" e seguir os passos.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Onde posso ver mais fotos e vídeos do bloco?</h3>
-          <p>Temos uma galeria nesta página com alguns de nossos melhores momentos! Para ver ainda mais, siga nosso perfil oficial no Instagram: <a href="https://www.instagram.com/recordarmosqueirooficial/" target="_blank" rel="noopener noreferrer">@recordarmosqueirooficial</a>.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Qual a data e local do evento?</h3>
-          <p>O evento acontecerá no dia 16 de Fevereiro de 2025, em Mosqueiro, Belém - PA. Fique atento às nossas redes sociais para mais detalhes sobre o percurso e horários!</p>
-        </div>
-      </section>
-    </main>
-    <footer>
-      <p>&copy; 2025 Recordar Mosqueiro. Todos os direitos reservados.</p>
-      <p>Desenvolvido com paixão pelo carnaval.</p>
-    </footer>
-  </div>
-  <!-- Lightbox HTML -->
-  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="lightbox-content">
-      <span class="lightbox-close">&times;</span>
-      <img id="lightbox-img" src="" alt="Imagem da Galeria">
-      <a class="lightbox-prev">&#10094;</a>
-      <a class="lightbox-next">&#10095;</a>
+
+    <div class="floating-buy-button">
+        <a href="#pedidoone">
+            <span class="icon">🎟️</span> Garanta seu Abadá!
+        </a>
     </div>
-  </div>
-  <script>
-    // Helper function to check if screen is small
-    function isSmallScreen() {
-      return window.innerWidth < 768;
-    }
-    // Utility to fit canvas to parent
-    function fitCanvas(canvas) {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      return canvas.getContext('2d');
-    }
-    // Format time for video controls - REMOVIDO pois os controles foram removidos
-    // function formatTime(seconds) {
-    //   const minutes = Math.floor(seconds / 60);
-    //   const remainingSeconds = Math.floor(seconds % 60);
-    //   return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-    // }
-    // ========== CONFETTI ==========
-    (function(){
-      const canvas = document.getElementById('confettiCanvas');
-      const ctx = fitCanvas(canvas);
-      let particles = [];
-      let raf;
-      const maxParticles = 150;
-      const colors = ['#FF416C','#FF4B2B','#FFD700','#00BFFF','#8A2BE2','#FF69B4','#ADFF2F'];
-      function resize() { fitCanvas(canvas); }
-      window.addEventListener('resize', resize);
-      function spawnConfetti(x, y, count = 30){
-        if(isSmallScreen()) return;
-        for(let i=0;i<count;i++){
-          if(particles.length > maxParticles) break;
-          const angle = Math.random() * Math.PI * 2;
-          const speed = 2 + Math.random()*5;
-          particles.push({
-            x: x + (Math.random()*20 - 10),
-            y: y + (Math.random()*20 - 10),
-            vx: Math.cos(angle)*speed,
-            vy: Math.sin(angle)*speed,
-            life: 60 + Math.random()*60,
-            age: 0,
-            size: 4 + Math.random()*6,
-            color: colors[Math.floor(Math.random()*colors.length)],
-            shape: Math.random() > 0.5 ? 'square' : 'circle'
-          });
-        }
-        if(!raf) loop();
-      }
-      function loop(ts){
-        raf = requestAnimationFrame(loop);
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        for(let i=particles.length-1;i>=0;i--){
-          const p = particles[i];
-          p.age++;
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vy += 0.1; // Gravity
-          p.vx *= 0.98; // Air resistance
-          p.vy *= 0.98;
-          const alpha = Math.max(0, 1 - p.age / p.life);
-          ctx.beginPath();
-          ctx.fillStyle = p.color;
-          ctx.globalAlpha = alpha;
-          if(p.shape === 'circle'){
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
-            ctx.fill();
-          } else {
-            ctx.fillRect(p.x - p.size/2, p.y - p.size/2, p.size, p.size);
-          }
-          if(p.age >= p.life) particles.splice(i,1);
-        }
-        ctx.globalAlpha = 1;
-        if(particles.length===0){ cancelAnimationFrame(raf); raf = null; }
-      }
-      window.triggerConfetti = function(options = {}){
-        const x = options.x || window.innerWidth / 2;
-        const y = options.y || window.innerHeight / 2;
-        spawnConfetti(x, y, options.count || undefined);
-      };
-      window.addEventListener('load', () => { setTimeout(()=>{ window.triggerRibbons && window.triggerRibbons(); window.triggerConfetti && window.triggerConfetti({count:40, x: window.innerWidth/2, y: 0}); }, 900); });
-    })();
-    // ========== RIBBONS / SERPENTINAS ==========
-    (function(){
-      const container = document.getElementById('ribbonsContainer');
-      if(isSmallScreen()) { container.style.display = 'none'; return; }
-      const colors = ['#FF416C','#FF4B2B','#FFD700','#00BFFF','#8A2BE2','#FF69B4','#ADFF2F']; // Cores de carnaval
-      const count = 8;
-      for(let i=0;i<count;i++){
-        const r = document.createElement('div');
-        r.className = 'ribbon';
-        r.style.left = `${Math.random()*100}%`;
-        r.style.background = colors[i % colors.length];
-        r.style.animationDuration = `${5 + Math.random()*4}s`;
-        r.style.animationDelay = `${Math.random()*1.2}s`;
-        r.style.width = `${8 + Math.random()*18}px`;
-        r.style.height = `${160 + Math.random()*160}px`;
-        container.appendChild(r);
-      }
-      setTimeout(()=>{ container.innerHTML = ''; }, 7000);
-      window.triggerRibbons = function(){
-        if(isSmallScreen()) return;
-        container.innerHTML = '';
-        for(let i=0;i<count;i++){
-          const r = document.createElement('div');
-          r.className = 'ribbon';
-          r.style.left = `${Math.random()*100}%`;
-          r.style.background = colors[i % colors.length];
-          r.style.animationDuration = `${4 + Math.random()*3}s`;
-          r.style.animationDelay = `${Math.random()*0.2}s`;
-          r.style.width = `${8 + Math.random()*18}px`;
-          r.style.height = `${120 + Math.random()*200}px`;
-          container.appendChild(r);
-        }
-        setTimeout(()=>{ container.innerHTML = ''; }, 5000);
-      };
-    })();
-    // ========== FIREWORKS ==========
-    (function(){
-      const canvas = document.getElementById('fireworksCanvas');
-      const ctx = fitCanvas(canvas);
-      let particles = [];
-      let raf;
-      const maxParticles = 240;
-      function resize() { fitCanvas(canvas); }
-      window.addEventListener('resize', resize);
-      function spawnFirework(x, y){
-        if(isSmallScreen()) return;
-        const hue = Math.random() * 360;
-        const count = 22 + Math.floor(Math.random()*36);
-        for(let i=0;i<count;i++){
-          if(particles.length > maxParticles) break;
-          const angle = Math.random() * Math.PI * 2;
-          const speed = 1.6 + Math.random()*4.6;
-          particles.push({
-            x, y,
-            vx: Math.cos(angle)*speed,
-            vy: Math.sin(angle)*speed,
-            life: 60 + Math.random()*70,
-            age: 0,
-            size: 1 + Math.random()*3,
-            hue: hue + (Math.random()*40 - 20)
-          });
-        }
-        if(!raf) loop();
-      }
-      function loop(ts){
-        raf = requestAnimationFrame(loop);
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        for(let i=particles.length-1;i>=0;i--){
-          const p = particles[i];
-          p.age++;
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vy += 0.03;
-          p.vx *= 0.995;
-          p.vy *= 0.995;
-          const alpha = Math.max(0, 1 - p.age / p.life);
-          ctx.beginPath();
-          ctx.fillStyle = `hsla(${p.hue}, 100%, 55%, ${alpha})`;
-          ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
-          ctx.fill();
-          if(p.age >= p.life) particles.splice(i,1);
-        }
-        if(particles.length===0){ cancelAnimationFrame(raf); raf = null; }
-      }
-      let lastFirework = 0;
-      window.triggerFireworks = function(){
-        const now = Date.now();
-        if(now - lastFirework < 700) return;
-        lastFirework = now;
-        const w = window.innerWidth, h = window.innerHeight;
-        for(let i=0;i<3;i++){
-          const x = 80 + Math.random()*(w-160);
-          const y = 120 + Math.random()*200;
-          spawnFirework(x, y);
-        }
-      };
-    })();
-    // ========== UI interactions tying effects ==========
-    (function(){
-      const buyButtons = document.querySelectorAll('#buyNow, #buyNow3');
-      buyButtons.forEach(btn=>{
-        btn.addEventListener('click', (e)=>{
-          window.triggerConfetti && window.triggerConfetti({count:80});
-          window.triggerRibbons && window.triggerRibbons();
-          window.triggerFireworks && window.triggerFireworks();
-          console.log('Clique em link oficial PedidoOne');
-        });
-      });
-      // micro parallax on hero media
-      const heroMedia = document.getElementById('heroMedia');
-      heroMedia.addEventListener('mousemove', function(e){
-        const rect = heroMedia.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        heroMedia.style.transform = `translate3d(${x*6}px, ${y*6}px, 0) scale(1.01)`;
-      });
-      heroMedia.addEventListener('mouseleave', ()=> heroMedia.style.transform = '');
-      // small animation on load: more ribbons/confetti once
-      window.addEventListener('load', ()=>{
-        if(!isSmallScreen()){
-          setTimeout(()=>{ window.triggerRibbons && window.triggerRibbons(); window.triggerConfetti && window.triggerConfetti({count:40, x: window.innerWidth/2, y: 0}); }, 900);
-        }
-      });
-    })();
-    // ========== Pedido.one Iframe Height Adjustment ==========
-    (function(){
-      const iframe = document.getElementById('pedido_one_iframe');
-      if (iframe) {
-        window.addEventListener('message', function (e) {
-          if (e.data && e.data.iframeHeight) {
-            iframe.style.height = e.data.iframeHeight + 'px';
-            const parentContainer = iframe.closest('.checkout-embed-container');
-            if (parentContainer) {
-              parentContainer.style.height = 'auto';
-            }
-          }
-        });
-      }
-    })();
-    // ========== Video Playback with Mute Control (Simplified for YouTube-like player) ==========
-    (function(){
-      const videoContainers = document.querySelectorAll('.video-player-container');
-      videoContainers.forEach(container => {
-        const video = container.querySelector('video');
-        const overlay = container.querySelector('.video-overlay');
-        const playButton = overlay.querySelector('.play-button');
-        const muteIconSpan = overlay.querySelector('.mute-icon');
 
-        // Initial state: muted and playing automatically when visible
-        video.muted = true; // Start muted
-        video.volume = 0.5; // Default volume (if unmuted)
+    <!-- 1. INÍCIO (HERO SECTION) -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <span class="badge">🌟 Viva o Carnaval • Abadás Limitados</span>
+            <h2>A folia que marcou uma geração está de volta!</h2>
+            <p>Prepare-se para uma viagem no tempo! O <strong>Bloco Recordar Mosqueiro</strong> traz de volta a alegria e a energia contagiante dos antigos carnavais. Garanta seu abadá e faça parte dessa folia que promete ficar para a história!</p>
+            <div class="cta-buttons">
+                <a href="#pedidoone" class="btn btn-primary">Comprar Abadá Agora!</a>
+                <a href="#gallery" class="btn btn-secondary">Ver Fotos e Vídeos</a>
+            </div>
+        </div>
+    </section>
 
-        // Function to update mute/unmute button icon and overlay text
-        function updateMuteIcon() {
-          if (muteIconSpan) {
-            muteIconSpan.innerHTML = video.muted ? '🔇 Mudo' : '🔊 Som';
-          }
-        }
+    <!-- 2. PRIMEIRO VÍDEO -->
+    <section class="video-section" id="first-video">
+        <h2 class="section-title">Nosso Carnaval Começa Aqui!</h2>
+        <div class="video-wrapper" id="firstVideoWrapper">
+            <video id="firstVideo" preload="metadata" playsinline>
+                <source src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767019836/RECORDAR_MOSQUEIRO_menor_mmmmm_tupafy.mp4" type="video/mp4">
+                Seu navegador não suporta o elemento de vídeo.
+            </video>
+            <div class="video-controls">
+                <button id="firstPlayBtn">▶</button>
+                <input type="range" id="firstVolumeSlider" min="0" max="1" step="0.01" value="0.5">
+                <button id="firstMuteBtn">🔊</button>
+                <div class="video-progress-bar" id="firstProgressBar">
+                    <div class="video-progress-bar-fill" id="firstProgressBarFill"></div>
+                </div>
+                <span id="firstCurrentTime" class="video-time">0:00</span> / <span id="firstDuration" class="video-time">0:00</span>
+            </div>
+            <div class="play-pause-overlay" id="firstPlayPauseOverlay">▶</div>
+        </div>
+    </section>
 
-        // NOVIDADE: Adicionado evento de clique direto no vídeo para play/pause
-        video.addEventListener('click', () => {
-          if (video.paused) {
-            video.play();
-          } else {
-            video.pause();
-          }
-        });
+    <!-- 3. FOTOS (GALERIA) -->
+    <section class="gallery-section" id="gallery">
+        <h2>Momentos Inesquecíveis do Nosso Carnaval!</h2>
+        <p>Confira fotos e vídeos que capturam a essência da nossa folia. Siga-nos no Instagram para mais!</p>
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openCarousel(0)">
+                <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017895/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110821_pvj1ey.png" alt="Carnaval 2025 Foto 1">
+            </div>
+            <div class="gallery-item" onclick="openCarousel(1)">
+                <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017893/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110808_fehzwu.png" alt="Carnaval 2025 Foto 2">
+            </div>
+            <div class="gallery-item" onclick="openCarousel(2)">
+                <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017889/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110709_u1urcj.png" alt="Carnaval 2025 Foto 3">
+            </div>
+            <div class="gallery-item" onclick="openCarousel(3)">
+                <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017890/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110757_eqmz7d.png" alt="Carnaval 2025 Foto 4">
+            </div>
+            <div class="gallery-item" onclick="openCarousel(4)">
+                <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017887/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110639_mx9a7g.png" alt="Carnaval 2025 Foto 5">
+            </div>
+            <div class="gallery-item" onclick="openCarousel(5)">
+                <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017885/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110613_igijb6.png" alt="Carnaval 2025 Foto 6">
+            </div>
+            <div class="gallery-item" onclick="openCarousel(6)">
+                <img src="https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017884/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110516_a3glic.png" alt="Carnaval 2025 Foto 7">
+            </div>
+        </div>
+    </section>
 
-        video.addEventListener('play', () => {
-          overlay.classList.add('hidden');
-        });
-        video.addEventListener('pause', () => {
-          overlay.classList.remove('hidden');
-        });
-        video.addEventListener('volumechange', updateMuteIcon);
+    <!-- Carousel Modal -->
+    <div class="carousel-modal" id="carouselModal">
+        <div class="carousel-content">
+            <img src="" alt="Imagem do Carrossel" id="carouselImage">
+            <button class="carousel-close" onclick="closeCarousel()">✖</button>
+            <button class="carousel-nav prev" onclick="changeSlide(-1)">❮</button>
+            <button class="carousel-nav next" onclick="changeSlide(1)">❯</button>
+        </div>
+    </div>
 
-        // Overlay click to play/unmute
-        overlay.addEventListener('click', () => {
-          if (video.paused) {
-            video.play();
-          }
-          video.muted = false; // Unmute on user interaction
-          overlay.classList.add('hidden');
-          updateMuteIcon();
-        });
+    <!-- 4. SEGUNDO VÍDEO -->
+    <section class="second-video-section" id="second-video">
+        <h2>Assim Foi Nosso 2025</h2>
+        <div class="video-wrapper" id="secondVideoWrapper">
+            <video id="secondVideo" preload="metadata" playsinline>
+                <source src="https://res.cloudinary.com/dqpcjvbcr/video/upload/v1767028762/2_online-video-cutter.com_dyqd1m.mp4" type="video/mp4">
+                Seu navegador não suporta o elemento de vídeo.
+            </video>
+            <div class="video-controls">
+                <button id="secondPlayBtn">▶</button>
+                <input type="range" id="secondVolumeSlider" min="0" max="1" step="0.01" value="0.5">
+                <button id="secondMuteBtn">🔊</button>
+                <div class="video-progress-bar" id="secondProgressBar">
+                    <div class="video-progress-bar-fill" id="secondProgressBarFill"></div>
+                </div>
+                <span id="secondCurrentTime" class="video-time">0:00</span> / <span id="secondDuration" class="video-time">0:00</span>
+            </div>
+            <div class="play-pause-overlay" id="secondPlayPauseOverlay">▶</div>
+        </div>
+    </section>
 
-        // Intersection Observer to play/pause when visible/invisible
-        const observer = new IntersectionObserver(entries => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              // Play with sound when visible
-              video.muted = false; // Unmute when visible
-              video.play().catch(() => {});
-              overlay.classList.add('hidden');
+    <!-- 5. FAQ -->
+    <section class="faq-section" id="faq">
+        <h2>Perguntas Frequentes</h2>
+        <div class="faq-item">
+            <div class="faq-question">
+                Qual a data e local do evento? <span class="icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                O Bloco Recordar Mosqueiro acontecerá no dia 25 de fevereiro de 2025, na Praia do Farol, em Mosqueiro. Prepare-se para a maior folia da ilha!
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                Como posso comprar meu abadá? <span class="icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                Você pode garantir seu abadá diretamente nesta página, na seção "Garanta seu Abadá!", ou nos pontos de venda autorizados que serão divulgados em breve em nosso Instagram.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                Haverá atrações musicais? <span class="icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                Sim! Teremos diversas atrações musicais que farão você dançar do início ao fim. Fique ligado em nossas redes sociais para o anúncio completo da programação!
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                O evento é para todas as idades? <span class="icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                Sim, o Bloco Recordar Mosqueiro é um evento para toda a família! Teremos uma estrutura segura e divertida para todas as idades.
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. FRAME DO PEDIDOONE -->
+    <section class="pedidoone-section" id="pedidoone">
+        <h2>Garanta seu Abadá!</h2>
+        <div class="pedidoone-iframe-container">
+            <iframe id="pedido_one_iframe" src="https://ticket.pedido.one/event/1slrdP/checkout?embed=1" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Recordar Mosqueiro. Todos os direitos reservados.</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/recordarmosqueiro/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <!-- Adicione outros links de redes sociais se houver -->
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // CONFETTI EFFECT
+        // ============================================
+        const confettiContainer = document.querySelector('.confetti-container');
+        const confettiColors = ['#FFD700', '#FF6B6B', '#667eea', '#764ba2', '#FF8E53', '#E1306C', '#00bcd4'];
+        const confettiShapes = ['square', 'serpentine', 'mask', 'note', 'star'];
+        const confettiEmojis = ['🎉', '🎊', '🥳', '✨', '🎶', '🎭'];
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+
+            const randomShape = confettiShapes[Math.floor(Math.random() * confettiShapes.length)];
+            confetti.classList.add(randomShape);
+
+            if (randomShape === 'mask' || randomShape === 'note' || randomShape === 'star') {
+                confetti.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+                confetti.style.color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
             } else {
-              video.pause();
-              video.muted = true; // Mute when not visible
-              overlay.classList.remove('hidden');
+                confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
             }
-            updateMuteIcon();
-          });
-        }, { threshold: 0.5 }); // Trigger when 50% of video is visible
-        observer.observe(video);
 
-        // Initial updates
-        updateMuteIcon();
-      });
-    })();
-    // ========== Gallery Lightbox/Carousel ==========
-    (function(){
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightbox-img');
-      const closeBtn = document.querySelector('.lightbox-close');
-      const prevBtn = document.querySelector('.lightbox-prev');
-      const nextBtn = document.querySelector('.lightbox-next');
-      const galleryLinks = document.querySelectorAll('.gallery a');
-      let currentImageIndex = 0;
-      let images = [];
-      // Populate images array
-      galleryLinks.forEach(link => {
-        images.push(link.getAttribute('data-img'));
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          currentImageIndex = images.indexOf(this.getAttribute('data-img'));
-          openLightbox(currentImageIndex);
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDuration = (Math.random() * 2 + 3) + 's'; // 3 to 5 seconds
+            confetti.style.opacity = Math.random() * 0.7 + 0.3; // 0.3 to 1
+            confetti.style.transform = `scale(${Math.random() * 0.8 + 0.2})`; // 0.2 to 1
+
+            confettiContainer.appendChild(confetti);
+
+            confetti.addEventListener('animationend', () => {
+                confetti.remove();
+            });
+        }
+
+        let confettiInterval;
+        const maxConfettiBurst = window.innerWidth < 768 ? 40 : 100; // Menos confetes no mobile
+
+        function triggerConfettiBurst() {
+            for (let i = 0; i < maxConfettiBurst; i++) {
+                createConfetti();
+            }
+        }
+
+        // Inicia confetes ao carregar a página
+        document.addEventListener('DOMContentLoaded', triggerConfettiBurst);
+        // Ativa confetes ao clicar em qualquer lugar do site
+        document.addEventListener('click', triggerConfettiBurst);
+
+
+        // ============================================
+        // VIDEO PLAYBACK LOGIC (FIRST AND SECOND VIDEO)
+        // ============================================
+        const videosConfig = [
+            { id: 'firstVideo', wrapperId: 'firstVideoWrapper', playBtnId: 'firstPlayBtn', volumeSliderId: 'firstVolumeSlider', muteBtnId: 'firstMuteBtn', overlayId: 'firstPlayPauseOverlay', progressBarId: 'firstProgressBar', progressBarFillId: 'firstProgressBarFill', currentTimeId: 'firstCurrentTime', durationId: 'firstDuration' },
+            { id: 'secondVideo', wrapperId: 'secondVideoWrapper', playBtnId: 'secondPlayBtn', volumeSliderId: 'secondVolumeSlider', muteBtnId: 'secondMuteBtn', overlayId: 'secondPlayPauseOverlay', progressBarId: 'secondProgressBar', progressBarFillId: 'secondProgressBarFill', currentTimeId: 'secondCurrentTime', durationId: 'secondDuration' }
+        ];
+
+        videosConfig.forEach(videoConfig => {
+            const video = document.getElementById(videoConfig.id);
+            const wrapper = document.getElementById(videoConfig.wrapperId);
+            const playBtn = document.getElementById(videoConfig.playBtnId);
+            const volumeSlider = document.getElementById(videoConfig.volumeSliderId);
+            const muteBtn = document.getElementById(videoConfig.muteBtnId);
+            const playPauseOverlay = document.getElementById(videoConfig.overlayId);
+            const progressBar = document.getElementById(videoConfig.progressBarId);
+            const progressBarFill = document.getElementById(videoConfig.progressBarFillId);
+            const currentTimeSpan = document.getElementById(videoConfig.currentTimeId);
+            const durationSpan = document.getElementById(videoConfig.durationId);
+
+
+            if (!video || !wrapper || !playBtn || !volumeSlider || !muteBtn || !playPauseOverlay || !progressBar || !progressBarFill || !currentTimeSpan || !durationSpan) {
+                console.warn(`Elementos para o vídeo ${videoConfig.id} não encontrados.`, {video, wrapper, playBtn, volumeSlider, muteBtn, playPauseOverlay, progressBar, progressBarFill, currentTimeSpan, durationSpan});
+                return;
+            }
+
+            video.dataset.lastVolume = volumeSlider.value; // Salva o último volume
+            video.dataset.userMuted = 'false'; // Flag para saber se o usuário mutou
+
+            // Play/Pause
+            const togglePlayPause = () => {
+                if (video.paused || video.ended) {
+                    video.play();
+                    wrapper.classList.add('playing');
+                    playBtn.textContent = '⏸';
+                    playPauseOverlay.textContent = '⏸';
+                } else {
+                    video.pause();
+                    wrapper.classList.remove('playing');
+                    playBtn.textContent = '▶';
+                    playPauseOverlay.textContent = '▶';
+                }
+            };
+            playBtn.addEventListener('click', togglePlayPause);
+            playPauseOverlay.addEventListener('click', togglePlayPause);
+
+            // Volume
+            volumeSlider.addEventListener('input', () => {
+                video.volume = volumeSlider.value;
+                video.dataset.lastVolume = volumeSlider.value;
+                if (video.volume === 0) {
+                    video.muted = true;
+                    muteBtn.textContent = '🔇';
+                    video.dataset.userMuted = 'true';
+                } else {
+                    video.muted = false;
+                    muteBtn.textContent = '🔊';
+                    video.dataset.userMuted = 'false';
+                }
+            });
+
+            // Mute/Unmute
+            muteBtn.addEventListener('click', () => {
+                video.muted = !video.muted;
+                if (video.muted) {
+                    muteBtn.textContent = '🔇';
+                    video.dataset.userMuted = 'true';
+                } else {
+                    muteBtn.textContent = '🔊';
+                    video.volume = video.dataset.lastVolume; // Restaura o último volume
+                    volumeSlider.value = video.dataset.lastVolume;
+                    video.dataset.userMuted = 'false';
+                }
+            });
+
+            // Update UI on video events
+            video.addEventListener('play', () => {
+                wrapper.classList.add('playing');
+                playBtn.textContent = '⏸';
+                playPauseOverlay.textContent = '⏸';
+            });
+            video.addEventListener('pause', () => {
+                wrapper.classList.remove('playing');
+                playBtn.textContent = '▶';
+                playPauseOverlay.textContent = '▶';
+            });
+            video.addEventListener('volumechange', () => {
+                volumeSlider.value = video.volume;
+                if (video.muted || video.volume === 0) {
+                    muteBtn.textContent = '🔇';
+                } else {
+                    muteBtn.textContent = '🔊';
+                }
+            });
+
+            // Progress Bar
+            video.addEventListener('timeupdate', () => {
+                const progress = (video.currentTime / video.duration) * 100;
+                progressBarFill.style.width = progress + '%';
+                currentTimeSpan.textContent = formatTime(video.currentTime);
+            });
+
+            video.addEventListener('loadedmetadata', () => {
+                durationSpan.textContent = formatTime(video.duration);
+            });
+
+            progressBar.addEventListener('click', (e) => {
+                const rect = progressBar.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const percent = clickX / rect.width;
+                video.currentTime = percent * video.duration;
+            });
+
+            function formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            }
+
+            // Intersection Observer for play/pause on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Quando o vídeo entra na visualização
+                        if (video.paused) {
+                            // Para o primeiro vídeo, tenta tocar com som, se não, mudo
+                            if (videoConfig.id === 'firstVideo') {
+                                if (video.dataset.userMuted === 'false') { // Se o usuário não mutou manualmente
+                                    video.muted = false;
+                                    video.volume = parseFloat(video.dataset.lastVolume || 0.5); // Restaura o último volume ou 0.5
+                                    if (muteBtn) muteBtn.textContent = '🔊';
+                                    if (volumeSlider) volumeSlider.value = video.volume;
+                                    video.play().catch(err => {
+                                        console.log(`Autoplay com som bloqueado para ${videoConfig.id} ao retornar. Tentando mudo...`, err);
+                                        video.muted = true;
+                                        if (muteBtn) muteBtn.textContent = '🔇';
+                                        if (volumeSlider) volumeSlider.value = 0;
+                                        video.play();
+                                    });
+                                } else { // Se o usuário mutou, toca mudo
+                                    video.muted = true;
+                                    if (muteBtn) muteBtn.textContent = '🔇';
+                                    if (volumeSlider) volumeSlider.value = 0;
+                                    video.play();
+                                }
+                            } else { // Para outros vídeos (segundo vídeo)
+                                if (video.dataset.userMuted === 'false') {
+                                    video.muted = false;
+                                    video.volume = parseFloat(video.dataset.lastVolume || 0.5);
+                                    if (muteBtn) muteBtn.textContent = '🔊';
+                                    if (volumeSlider) volumeSlider.value = video.volume;
+                                } else {
+                                    video.muted = true;
+                                    if (muteBtn) muteBtn.textContent = '🔇';
+                                    if (volumeSlider) volumeSlider.value = 0;
+                                }
+                                video.play();
+                            }
+                        }
+                    } else {
+                        // Quando o vídeo sai da visualização
+                        if (!video.paused) {
+                            video.pause();
+                        }
+                    }
+                });
+            }, { threshold: 0.7 }); // 70% do vídeo visível
+
+            observer.observe(wrapper);
         });
-      });
-      function openLightbox(index) {
-        lightbox.classList.add('active');
-        lightbox.setAttribute('aria-hidden', 'false');
-        showImage(index);
-      }
-      function closeLightbox() {
-        lightbox.classList.remove('active');
-        lightbox.setAttribute('aria-hidden', 'true');
-      }
-      function showImage(index) {
-        if (index < 0) {
-          currentImageIndex = images.length - 1;
-        } else if (index >= images.length) {
-          currentImageIndex = 0;
-        } else {
-          currentImageIndex = index;
+
+        // Autoplay do PRIMEIRO VÍDEO ao carregar a página (com som, fallback para mudo)
+        window.addEventListener('load', () => {
+            const firstVideo = document.getElementById('firstVideo');
+            const firstWrapper = document.getElementById('firstVideoWrapper');
+            const firstPlayBtn = document.getElementById('firstPlayBtn');
+            const firstVolumeSlider = document.getElementById('firstVolumeSlider');
+            const firstMuteBtn = document.getElementById('firstMuteBtn');
+            const firstPlayPauseOverlay = document.getElementById('firstPlayPauseOverlay');
+
+            if (!firstVideo) return;
+
+            setTimeout(() => {
+                firstVideo.muted = false; // Tenta iniciar com som
+                firstVideo.volume = 0.5;
+                if (firstVolumeSlider) firstVolumeSlider.value = 0.5;
+                if (firstMuteBtn) firstMuteBtn.textContent = '🔊';
+                firstVideo.dataset.lastVolume = 0.5;
+                firstVideo.dataset.userMuted = 'false';
+
+                firstVideo.play().then(() => {
+                    firstWrapper.classList.add('playing');
+                    if (firstPlayBtn) firstPlayBtn.textContent = '⏸';
+                    if (firstPlayPauseOverlay) firstPlayPauseOverlay.textContent = '⏸';
+                    console.log('Primeiro vídeo iniciado com som.');
+                }).catch(err => {
+                    console.log('Autoplay com som bloqueado pelo navegador. Tentando mudo...', err);
+                    // Fallback: se bloquear com som, tenta mudo
+                    firstVideo.muted = true;
+                    if (firstMuteBtn) firstMuteBtn.textContent = '🔇';
+                    if (firstVolumeSlider) firstVolumeSlider.value = 0;
+                    firstVideo.dataset.userMuted = 'true'; // Marca como mutado pelo sistema
+                    firstVideo.play().then(() => {
+                        firstWrapper.classList.add('playing');
+                        if (firstPlayBtn) firstPlayBtn.textContent = '⏸';
+                        if (firstPlayPauseOverlay) firstPlayPauseOverlay.textContent = '⏸';
+                        console.log('Primeiro vídeo iniciado mudo (fallback).');
+                    }).catch(err => {
+                        console.log('Erro ao tentar tocar vídeo mudo no autoplay:', err);
+                        firstWrapper.classList.remove('playing');
+                        if (firstPlayBtn) firstPlayBtn.textContent = '▶';
+                        if (firstPlayPauseOverlay) firstPlayPauseOverlay.textContent = '▶';
+                    });
+                });
+            }, 200);
+        });
+
+        // ============================================
+        // SMOOTH SCROLL
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ============================================
+        // CAROUSEL
+        // ============================================
+        const galleryImages = [
+            'https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017895/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110821_pvj1ey.png',
+            'https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017893/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110808_fehzwu.png',
+            'https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017889/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110709_u1urcj.png',
+            'https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017890/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110757_eqmz7d.png',
+            'https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017887/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110639_mx9a7g.png',
+            'https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017885/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110613_igijb6.png',
+            'https://res.cloudinary.com/dqpcjvbcr/image/upload/v1767017884/Recordar%20Mosqueiro/Captura_de_tela_2025-12-29_110516_a3glic.png'
+        ];
+
+        let currentSlide = 0;
+
+        function openCarousel(index) {
+            currentSlide = index;
+            const carouselImage = document.getElementById('carouselImage');
+            const carouselModal = document.getElementById('carouselModal');
+
+            carouselImage.src = galleryImages[currentSlide];
+
+            carouselModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
-        lightboxImg.src = images[currentImageIndex];
-      }
-      closeBtn.addEventListener('click', closeLightbox);
-      prevBtn.addEventListener('click', () => showImage(currentImageIndex - 1));
-      nextBtn.addEventListener('click', () => showImage(currentImageIndex + 1));
-      // Close with ESC key
-      window.addEventListener('keydown', function(e) {
-        if (lightbox.classList.contains('active')) {
-          if (e.key === 'Escape') {
-            closeLightbox();
-          } else if (e.key === 'ArrowLeft') {
-            showImage(currentImageIndex - 1);
-          } else if (e.key === 'ArrowRight') {
-            showImage(currentImageIndex + 1);
-          }
+
+        function closeCarousel() {
+            document.getElementById('carouselModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
-      });
-      // Close when clicking outside the image
-      lightbox.addEventListener('click', function(e) {
-        if (e.target === lightbox) {
-          closeLightbox();
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = galleryImages.length - 1;
+            if (currentSlide >= galleryImages.length) currentSlide = 0;
+            document.getElementById('carouselImage').src = galleryImages[currentSlide];
+            triggerConfettiBurst(); // Trigger confetti on slide change
         }
-      });
-    })();
-    // ========== Misc: Smooth scroll for nav links ==========
-    document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', function(e){
-        e.preventDefault();
-        const id = this.getAttribute('href');
-        document.querySelector(id).scrollIntoView({behavior:'smooth', block:'start'});
-      });
-    });
-    // Ensure canvases cover the full viewport visually after layout
-    (function initCanvasSizes(){
-      const cvs = [document.getElementById('confettiCanvas'), document.getElementById('fireworksCanvas')];
-      function fitAll(){
-        cvs.forEach(c => { c.style.width = '100%'; c.style.height = '100%'; fitCanvas(c); });
-      }
-      window.addEventListener('resize', fitAll);
-      fitAll();
-    })();
-	<!-- v2 -->
-  </script>
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeCarousel();
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // ============================================
+        // FAQ ACCORDION
+        // ============================================
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isOpen = answer.style.display === 'block';
+
+                // Fecha todos os outros
+                document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+                document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
+
+                if (!isOpen) {
+                    answer.style.display = 'block';
+                    question.classList.add('active');
+                }
+
+                triggerConfettiBurst(); // Trigger confetti on FAQ interaction
+            });
+        });
+
+        // ============================================
+        // PEDIDOONE IFRAME HEIGHT
+        // ============================================
+        const iframe = document.getElementById('pedido_one_iframe');
+        window.addEventListener('message', function (e) {
+            if (e.data && e.data.iframeHeight) {
+                iframe.style.height = e.data.iframeHeight + 'px';
+            }
+        });
+    </script>
 </body>
 </html>
